@@ -1,0 +1,118 @@
+
+#container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-left: 320px;
+    transition: all .3s ease;
+
+    &.full {
+        padding-left: 0;
+
+        .cover {
+            width: 0;
+            display: none;
+        }
+    }
+}
+
+.cover {
+    position: fixed;
+    width: 320px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #f8f8f8;
+
+    .cover-inner {
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+    }
+
+    .you {
+        display: block;
+        position: relative;
+        transition: all .3 ease;
+
+        img {
+            width: 116px;
+            height: 116px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin: 0;
+            color: #f8f8f8;
+            letter-spacing: 0.05em;
+        }
+    }
+
+    .desc {
+        margin-top: 18px;
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+    }
+
+    .links {
+        ul {
+            padding-left: 0;
+
+            li  {
+                line-height: 30px;
+                transition: all .3s ease;
+
+                a {
+                    color: #f8f8f8;
+
+                    &:hover {
+                        color: #ea6153;
+                    }
+                }
+            }
+        }
+        &.socials {
+            ul {
+                li {
+                    display: inline-block;
+                    margin-right: 4px;
+                    
+                    &:hover {
+                        -webkit-transform: scale(1.1) rotate(4deg);
+                        transform: scale(1.1) rotate(4deg);
+                    }
+
+                    a {
+                        padding: 6px 8px 6px 9px;
+
+                        &:hover {
+                            color: #ea6153;
+                        }
+
+                        .icon {
+                            font-size: 1.3em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

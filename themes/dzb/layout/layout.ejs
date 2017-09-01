@@ -1,0 +1,14 @@
+
+<%- partial('common/head') %>
+<body>
+    <div id="container" <% if(is_post()) { %> class="full" <% } %> >
+        <%- partial('common/side') %>
+        <%- body %>
+    </div>
+
+    <%- js('https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js') %>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

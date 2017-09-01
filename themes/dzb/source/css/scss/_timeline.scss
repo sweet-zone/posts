@@ -1,0 +1,22 @@
+
+.timeline-wrap {
+    padding: 30px 100px;
+
+    @include mobile {
+        padding: 30px 30px;
+    }
+
+    .timeline {
+        padding: 0 26px;
+        border-left: 3px solid #eceff2;
+    }
+
+    .timeline-row {
+        .node {
+
+        }
+        .title {
+            
+        }
+    }
+}

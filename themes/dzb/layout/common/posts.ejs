@@ -1,0 +1,35 @@
+
+<div class="wrapper index">
+    <h1 class="wrapper-title"><%= wrapperTitle %></h1>
+    <div class="posts">
+        <% page.posts.each(function(post, i) { %>
+        <div class="post-wrapper" style="background-image:url(<%- url_for(post.banner) %>)">
+            <a class="post" href="<%- url_for(post.path) %>">
+                <div class="darkzone"></div>
+                <p class="post-time" data-timetag="<%- time(Date.now(), 'h:mm:ss a') %>">
+                    <%- date(post.date, 'YYYY/M/D') %>
+                </p>
+                <h2 class="post-title">
+                    <%= post.title %>
+                    <% if(post.label) { %>
+                    <p class="t"><%= post.label %></p>
+                    <% } %>
+                </h2>
+            </a>
+            <% if (post.tags && post.tags.length) { %>
+            <div class="post-tag">
+                <%- list_tags(post.tags, { show_count: false, style: 'link' }) %>
+            </div>
+            <% } %>
+        </div>
+        <% }); %>
+    </div>
+    <% if (page.total > 1) { %>
+        <nav id="page-nav"">
+            <%- paginator({
+                prev_text: '&laquo; ' + __('nav.prev'),
+                next_text: __('nav.next') + ' &raquo;'
+            }) %>
+        </nav>
+    <% } %>
+</div>

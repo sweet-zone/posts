@@ -1,0 +1,33 @@
+
+//
+// VARIABLES
+//
+
+// Colors
+$blue: #59a0d5;
+$underline: #ef8778;
+
+// Grays
+$black: #243e4c;
+$darkerGray: #3d4542;
+$default: #383d44;
+$gray: #88909a;
+$lightGray: #dadbdb;
+$white: #fefefe;
+
+// Mobile breakpoints
+@mixin mobile {
+  @media screen and (max-width: 640px) {
+    @content;
+  }
+}
+
+
+/* FONT */
+
+$default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+             "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+             SimSun, sans-serif;
+$code-font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+$line-height: 1.4;
+

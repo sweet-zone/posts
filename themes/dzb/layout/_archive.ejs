@@ -1,0 +1,38 @@
+<div class="timeline-wrap">
+    <div class="timeline">
+        <% var last;
+        page.posts.each(function(post, i) {
+            var year = post.date.year();
+            if (last != year) {
+                last = year; %>
+                <div class="timeline-row timeline-row-major">
+                    <span class="node"><i class="ion ion-earth"></i></span>
+                    <h1 class="title"><%= year %></h1>
+                </div>
+            <% } %>
+            <div class="timeline-row">
+                <span class="node"><i class="ion ion-planet"></i></span>
+                <div class="content">
+                    <%- date(post.date, 'YYYY/M/D') %>
+                    <div class="meta">
+                        <p><%= post.time %></p>
+                        <h2><%= post.title %></h2>
+                        <% if (post.tags && post.tags.length) { %>
+                        <div class="post-tag">
+                            <%- list_tags(post.tags, { show_count: false, style: 'link' }) %>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+</div>
+<% if (page.total > 1) { %>
+    <nav id="page-nav">
+        <%- paginator({
+            prev_text: '&laquo; ' + __('nav.prev'),
+            next_text: __('nav.next') + ' &raquo;'
+        }) %>
+    </nav>
+<% } %>

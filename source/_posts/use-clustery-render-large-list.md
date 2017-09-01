@@ -1,7 +1,7 @@
 
 layout: post
 title: 前端长列表渲染优化
-banner: assets/img/pexels-photo-257930.jpeg
+banner: assets/img/performance.jpg
 tags: 
 - JavaScript
 - performance

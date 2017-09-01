@@ -1,7 +1,7 @@
 
 layout: post
 title: 新的博客，新的一年
-banner: assets/img/macbook-computer-clean-hero.jpg
+banner: assets/img/new-year-new-blog.jpeg
 date: 2017-2-26
 updated: 2017-8-29
 tags: life

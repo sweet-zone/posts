@@ -1,7 +1,7 @@
 
 layout: post
 title: 最近的状态
-banner: assets/img/pexels-photo-257930.jpeg
+banner: assets/img/myself-recently.jpeg
 tags: life
 ---
 

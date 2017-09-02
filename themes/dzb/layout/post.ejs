@@ -21,6 +21,10 @@
         <%- page.content %>
     </div>
 
+    <% if(page.update) { %>
+    <div class="update-tip">**本文于 <%- date(page.updated, 'YYYY/M/D, h:mm:ss a') %> 重新编辑**</div>
+    <% } %>
+
     <div class="comment">
         <!-- 来必力City版安装代码 -->
         <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">

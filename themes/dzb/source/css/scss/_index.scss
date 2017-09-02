@@ -223,8 +223,15 @@
             }
         }
 
+        .update-tip {
+            font-size: 16px;
+            color: #88909a;
+            text-align: center;
+            font-style: italic;
+        }
+
         .comment {
-            padding: 0 160px;
+            padding: 30px 160px;
 
             @include mobile {
                 padding: 30px 30px;

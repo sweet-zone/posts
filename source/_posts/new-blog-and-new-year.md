@@ -3,21 +3,17 @@ layout: post
 title: 新的博客，新的一年
 banner: assets/img/new-year-new-blog.jpeg
 date: 2017-2-26
-updated: 2017-8-29
+updated: 2017-9-2 10:54
 tags: life
 ---
 
-之前在好多平台上尝试写过博客，只有[博客园](http://www.cnblogs.com/zjzhome/)还得以保留，里面有我许多初学和刚刚参见工作时候的一些稚嫩的文章，而且样式也是我花了一些时间定制过的。不过总感觉博客园各种东西混杂，而且博客园的样式也是万年不更新了。最终还是决定自己搭建一个，托管在 Github 上足够简单和方便，也能够简单的定制操作逻辑和喜欢的样式。
+在好多可以写博客的地方混迹过，但每次都不持久（误）。要么就是这个平台压根想不起来（避免挨打，不列举了），要么就是这个平台看起来又老又旧，万年不更新的样子，虽然样式可以自己定制（比如[博客园](http://www.cnblogs.com/zjzhome/)）。索性就自己做一个。
 
-去年因为开始新的业务，整个一年都很忙，晚上很晚回家倒头就睡，周末会有一天也在公司加班。忙有好处，可以忘掉许多事情，也接触到了新的业务和新的技术。因为开始做客户端，了解到了客户端开始和前端开发一些思路上的不同。当然缺点也很明显，缺少了沉淀的时间，从组内分享基本为零也可以看出来。而且时间紧迫的情况下，你几乎不会有时间去思考为什么这么做，只是看见业务在线上跑起来了就完事大吉了，然后一头扎进下一个需求里了。所以去年一年我没有写博客，还是在年底的时候，被群里一个小伙伴追着写了一篇关于 `Electron` 的文章，算了给去年结了个尾。所以这个博客就是作为一个沉淀的位置，即使忙碌也要记得停下来，有一些积累和沉淀。
+开始是 fork 了 [barryclark/jekyll-now](https://github.com/barryclark/jekyll-now)这个项目，基于 jekyll。半年后（2017-8-29），迁移到了 Hexo，并且自己制作了主题，在主题制作过程中，借（chao）鉴（xi）了一些博客的样式和结构。:joy:
 
+做一个能让自己赏心悦目的博客呢也主要是为了让自己能有写文章的动力。其实特别敬佩那些时常能更新文章并且文章有长度也有深度的人，比如张鑫旭大大，既有很新的知识又有一些看起来很常见，但他的文章会深挖一些你不知道又很有趣的特性。话说回自己，从工作到现在，其实也接触了一些新的东西并有了一些收获，但好像并没有很好的沉淀下来，也没有很好的分享出去。去年年底的时候，被群里一个小伙伴追着写了一篇关于 `Electron` 的文章，才发现自己用 Electron 用了大半年，却没有留下几篇文章，或许是关于 Electron 本身的，或许是关于 web 技术构建桌面应用的，或许是 web 应用和客户端应用的差异，都没有，很是汗颜。
 
------- *更新分割线* ------
-
-使用 Hexo 重写了博客。
-
------- *更新分割线* ------
-
+所以给自己开一个新的地方，留下一些文字，留下一些成长。
 
 去年元旦半夜，我写过一段挺矫情的话：
 
@@ -29,9 +25,10 @@ tags: life
 
 *感谢*
 
-* 参考 [kikobeats](https://kikobeats.com/)
+* 特别参考 [kikobeats](https://kikobeats.com/)
 * 参考 [hexo-theme-icarus](http://blog.zhangruipeng.me/hexo-theme-icarus/)
 * 参考 [hexo-theme-tranquilpeak/](http://louisbarranqueiro.github.io/hexo-theme-tranquilpeak/)
 * 参考 [http://www.ahonn.me/](http://www.ahonn.me/)
 * 图片来源 [PEXELS](https://www.pexels.com/?ref=producthunt)
 * 图片来源 [泼辣有图](http://www.polayoutu.com/collections)
+* 评论 [来必力](https://livere.com/introduce)

@@ -4,7 +4,7 @@
         <a class="anchor full" href="javascript:void(0);" id="anchor">
             <img class="radius" src="<%- url_for('css/img/avatar_1.jpeg') %>" alt="avatar">
         </a>
-        <p class="post-time"><%- date(page.date, 'YYYY/M/D, h:mm:ss a') %></p>
+        <p class="post-time">posted @ <%- date(page.date, 'YYYY/M/D, h:mm:ss a') %></p>
         <h1 class="post-title">
             <%= page.title %>
             <% if(page.label) { %>

@@ -1,8 +1,8 @@
 
 layout: post
 title: async & await
-banner: assets/img/webpack.jpg
-date: 2017-9-13 19:27
+banner: assets/img/async-and-await.jpeg
+date: 2017-9-14 19:27
 label: 译
 tags:
 - ES6

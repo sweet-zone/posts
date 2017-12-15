@@ -3,9 +3,16 @@
     position: relative;
     width: 100%;
     height: 100%;
+    padding-left: 320px;
     transition: all .3s ease;
 
+    @include mobile {
+        padding-left: 160px;
+    }
+
     &.full {
+        padding-left: 0;
+
         .cover {
             width: 0;
             display: none;
@@ -22,7 +29,10 @@
     background-repeat: no-repeat;
     background-size: cover;
     color: #f8f8f8;
-    z-index: 100;
+
+    @include mobile {
+        width: 160px;
+    }
 
     .cover-inner {
         position: absolute;

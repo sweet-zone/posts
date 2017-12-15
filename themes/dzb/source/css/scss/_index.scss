@@ -107,7 +107,7 @@
 
             .anchor {
                 position: fixed;
-                left: 340px;
+                left: 20px;
                 top: 20px;
                 z-index: 999;
                 display: block;
@@ -115,10 +115,6 @@
                 transition: all .3s ease;
                 -webkit-transform: rotate(-180deg);
                 transform: rotate(-180deg);
-
-                &.full {
-                    left: 20px;
-                }
 
                 &:hover {
                     -webkit-transform: rotate(0);

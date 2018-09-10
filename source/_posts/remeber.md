@@ -1,6 +1,6 @@
 
 layout: post
-title: 总有很多话想说，但不知道该说些什么
+title: REMEBER
 banner: assets/img/remember.jpeg
 date: 2017-6-16
 tags: life

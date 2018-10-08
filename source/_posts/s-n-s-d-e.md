@@ -1,7 +1,7 @@
 
 layout: post
 title: setImmediate() vs nextTick() vs setTimeout(fn,0) 
-banner: assets/img/javascript-this.jpeg
+banner: assets/img/event-loop-node.jpeg
 label: 译
 tags:
 - nodejs

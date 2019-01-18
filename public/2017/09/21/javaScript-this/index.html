@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="JavaScript 中的 this">
+    <meta property="twitter:title" content="JavaScript 中的 this">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/javascript-this.jpeg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2017/9/21, 8:04:00 晚上</p>
+        <h1 class="post-title">
+            JavaScript 中的 this
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/javascript/">javascript</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>JavaScript中 的 this 是一个很神奇的存在，要确定 this 到底指向的谁并不简单，最近拜读了你不知道的 JavaScript，书中完整了讨论了各种情况。</p>
+<p><strong>this</strong> 是在运行时进行绑定的，并不是在编写时绑定，它的上下文取决于函数调用时的各种条件。<strong>this</strong> 的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。</p>
+<p>当一个函数被调用时，会创建一个活动记录(有时候也称为执行上下文)。这个记录会包含函数在哪里被调用(调用栈)、函数的调用方法、传入的参数等信息。this 就是记录的其中一个属性，会在函数执行的过程中用到。</p>
+<p>所以说对于 <strong>this</strong> 来说，在哪里被调用和如何被调用会起到决定性的作用。</p>
+<h2 id="默认情况">默认情况</h2>
+<p>默认情况下，函数在全局被调用，此时的 this 默认指向 window（global)。严格模式下 this 绑定到 undefined。此时的严格模式特指函数内的严格模式，与调用处是否严格模式无关。</p>
+<pre><code class="language-js">function foo() { 
+    console.log( this.a );
+}
+var a = 2; 
+foo(); // 2
+
+// 严格模式下
+function foo() { 
+    &quot;use strict&quot;;
+    console.log( this.a );
+}
+var a = 2;
+foo(); // TypeError: this is undefined
+</code></pre>
+<h2 id="隐式绑定">隐式绑定</h2>
+<p>此时需要考虑函数调用位置的上下文对象。</p>
+<pre><code class="language-js">function foo() { 
+    console.log( this.a );
+}
+var obj = { 
+    a: 2,
+    foo: foo 
+};
+// 使用 obj 上下文来引用函数
+obj.foo(); // 2
+</code></pre>
+<p>对象属性引用链中只有最顶层或者说最后一层会影响调用位置：</p>
+<pre><code class="language-js">
+function foo() { 
+    console.log( this.a );
+}
+var obj2 = { 
+    a: 42,
+    foo: foo 
+};
+var obj1 = { 
+    a: 2,
+    obj2: obj2 
+};
+// 使用 obj2 上下文来引用函数
+obj1.obj2.foo(); // 42
+</code></pre>
+<h3 id="绑定丢失">绑定丢失</h3>
+<pre><code class="language-js">function foo() { 
+    console.log( this.a );
+}
+var obj = { 
+    a: 2,
+    foo: foo 
+};
+
+// 虽然 bar 是 obj.foo 的一个引用，但是实际上，它引用的是 foo 函数本身，因此此时的 bar() 
+// 其实是一个不带任何修饰的函数调用，因此应用了默认绑定。
+var bar = obj.foo; // 函数别名!
+var a = &quot;oops, global&quot;; // a 是全局对象的属性 
+bar(); // &quot;oops, global&quot;
+</code></pre>
+<p>另外一种情况是回调函数，不论是自己创建还是 JS 内置的像 setTimeout 这些方法，所以我们常常使用 <code>var _this = this</code> 来获得 this 的引用。</p>
+<pre><code class="language-js">
+// 回调函数常常会改变 this
+function foo() { 
+    console.log( this.a );
+}
+function doFoo(fn) {
+    // fn 其实引用的是 foo 
+    fn(); // &lt;-- 调用位置!
+}
+var obj = { 
+    a: 2,
+    foo: foo 
+};
+var a = &quot;oops, global&quot;; // a 是全局对象的属性 
+doFoo( obj.foo ); // &quot;oops, global&quot;
+
+// 内置函数
+
+function foo() { 
+    console.log( this.a );
+}
+
+var obj = { 
+    a: 2,
+    foo: foo 
+};
+var a = &quot;oops, global&quot;; // a 是全局对象的属性 
+setTimeout( obj.foo, 100 ); // &quot;oops, global&quot;
+</code></pre>
+<h2 id="显示绑定">显示绑定</h2>
+<p>显式绑定即通过 <strong>call</strong> 或者 <strong>apply</strong> 改变 this 的指向。</p>
+<pre><code class="language-js">function foo() { 
+    console.log( this.a );
+}
+var obj = { 
+    a:2
+};
+foo.call( obj ); // 2
+</code></pre>
+<h2 id="硬绑定">硬绑定</h2>
+<p>硬绑定即：<code>Function.prototype.bind</code>，在函数 bind 之后，此后再 apply、call、bind 都不会改变绑定。</p>
+<p>比如 Array.prototype.forEach 等函数最后一个参数即绑定 this。</p>
+<h2 id="new-绑定">new 绑定</h2>
+<pre><code class="language-js">function foo(a) { 
+   this.a = a;
+}
+var bar = new foo(2); 
+console.log( bar.a ); // 2
+</code></pre>
+<p>几种绑定的优先级：<strong>new 绑定 &gt; 硬绑定 &gt; 显示绑定 &gt; 隐式绑定</strong>。</p>
+<h2 id="间接绑定">间接绑定</h2>
+<p>一种比较特殊的情况：<code>(p.foo = o.foo)</code>这个赋值操作返回的是对 foo 的引用，执行的是默认绑定。</p>
+<pre><code class="language-js">function foo() { 
+    console.log( this.a );
+}
+
+var a = 2; 
+var o = { a: 3, foo: foo }; 
+var p = { a: 4 };
+o.foo(); // 3
+(p.foo = o.foo)(); // 2
+p.foo() // 4
+</code></pre>
+<h2 id="es6-的箭头函数">ES6 的箭头函数</h2>
+<p>箭头函数是一种不同的 this 的机制，根据外层的作用域确定 this 指向，取代 <code>var self = this</code>的写法，和 bind 一样，此后再次调用 call、apply、bind this 指向不会改变。</p>
+<pre><code class="language-js">function foo() { 
+    setTimeout(() =&gt; {
+    // 这里的 this 在此法上继承自 foo()
+        console.log( this.a );
+    }, 100);
+}
+var obj = { 
+    a: 2
+};
+foo.call( obj ); // 2
+</code></pre>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2019/1/17, 9:00:11 晚上 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

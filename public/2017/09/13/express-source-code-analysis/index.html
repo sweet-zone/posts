@@ -1,0 +1,362 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="Express 源码简析">
+    <meta property="twitter:title" content="Express 源码简析">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/express-source-code.jpeg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2017/9/13, 11:04:00 晚上</p>
+        <h1 class="post-title">
+            Express 源码简析
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/nodejs/">nodejs</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p><a href="https://github.com/expressjs/express" target="_blank" rel="noopener">Express</a> 是一个简洁易用的 Nodejs 的 Web 开发框架，我的个人项目：<a href="https://github.com/zjzhome/Gulp-Mock-Server" target="_blank" rel="noopener">基于Gulp构建前端Mock Server</a>中，前端服务器就是使用了 Express 来实现。</p>
+<p>使用 Express 创建 Web应用及其简单，可以直接使用 express-generator 创建一个脚手架，也可以最简单的一个 app.js 搞定，下面是一个简单的 Express 创建服务器的示例：</p>
+<pre><code class="language-js">var express = require('express')
+var app = express()
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+
+app.use(express.static(__dirname));
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// 可以定制多种路由
+app.get('/api', function(req, res) {
+    res.send('Hello world')
+})
+
+// 也可以这样定义嵌套路由
+// express-generator 自动生成的代码就是采用了这样的方法
+var users = require('./routes/users');
+app.use('/users', users);
+
+app.listen(3000)
+</code></pre>
+<p>./routes/users.js 内容如下：</p>
+<pre><code class="language-js">var express = require('express');
+var router = express.Router();
+
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
+
+module.exports = router;
+</code></pre>
+<p>运行 <code>node app.js</code>, 访问 <code>localhost:3000/api</code> 页面会输出 <code>Hello world</code>，从上面可以看出，创建 express 大概需要这么几步：</p>
+<ul>
+<li>设置应用，比如设置要使用的模板引擎，设置模板目录</li>
+<li>app.use 设置页面请求中要使用到的中间件</li>
+<li>设置路由监听</li>
+<li>开启服务器，监听响应端口</li>
+</ul>
+<p>我们对照这四个步骤来看下 Express 的源码。</p>
+<h2 id="初始化和设置应用">初始化和设置应用</h2>
+<p>下载 express 4.x 源码，首先找到 express 的入口文件 <code>index.js</code>，只有一行：</p>
+<pre><code class="language-js">module.exports = require('./lib/express');
+</code></pre>
+<p>然后进入 <code>lib</code> 目录，其实 express 所有的代码都在 <code>lib</code> 目录下。找到 express.js ：</p>
+<pre><code class="language-js">var proto = require('./application');
+
+exports = module.exports = createApplication;
+
+function createApplication() {
+  var app = function(req, res, next) {
+    app.handle(req, res, next);
+  };
+
+  // 继承 EventEmitter，使得 app 也能触发和监听事件
+  mixin(app, EventEmitter.prototype, false);
+  // app 增加方法，该方法来自于 application.js
+  // 其中就有 app.init
+  mixin(app, proto, false);
+
+  // expose the prototype that will get set on requests
+  // 暴露 request 属性
+  app.request = Object.create(req, {
+    app: { configurable: true, enumerable: true, writable: true, value: app }
+  })
+
+  // expose the prototype that will get set on responses
+  // 暴露 response 属性
+  app.response = Object.create(res, {
+    app: { configurable: true, enumerable: true, writable: true, value: app }
+  })
+
+  app.init();
+  return app;
+}
+</code></pre>
+<p>以上代码就是应用初始化的主要代码，当 <code>app = require('express')()</code>，也就是执行了 <code>createApplication</code> 方法，该方法返回了 <code>app</code> 实例。改方法对 <code>app</code> 做了相关处理，相关处理标注在了代码中。最后调用 <code>app.init</code> 进行应用设置，init 相关代码在 <code>application.js</code> 内，太长就不贴了。</p>
+<p>同时我们发现 app 其实是一个方法，这个方法拥有 <code>req</code>、<code>res</code>、<code>next</code>三个参数。当我们调用 <code>app.listen(3000)</code> 开启服务器监听端口时，其实是执行了一下代码：</p>
+<pre><code class="language-js">// 代码来自 application.js
+app.listen = function listen() {
+  var server = http.createServer(this);
+  return server.listen.apply(server, arguments);
+};
+
+// 其实也就是以下代码
+app.listen = function listen() {
+  var server = http.createServer(function(req, res, next) {
+    app.handle(req, res, next)
+  });
+  return server.listen.apply(server, arguments);
+};
+</code></pre>
+<p>我们看到 app 是作为 <code>http.createServer</code> 这个方法的参数传进去的，app 方法的前两个参数和 <code>http.createServer</code> 前两个参数一致，当用户访问某个链接时，就执行 <code>app.handle</code>，处理该路由对应的方法，该方法将在最后介绍。</p>
+<h2 id="中间件处理">中间件处理</h2>
+<p>使用中间件均是通过 app.use 方法，该方法位于 <code>./application.js</code>。</p>
+<pre><code class="language-js">app.use = function use(fn) {
+  var offset = 0;
+  var path = '/';
+
+  // default path to '/'
+  // disambiguate app.use([fn])
+  if (typeof fn !== 'function') {
+    var arg = fn;
+
+    while (Array.isArray(arg) &amp;&amp; arg.length !== 0) {
+      arg = arg[0];
+    }
+
+    // first arg is the path
+    if (typeof arg !== 'function') {
+      offset = 1;
+      path = fn;
+    }
+  }
+
+  var fns = flatten(slice.call(arguments, offset));
+
+  if (fns.length === 0) {
+    throw new TypeError('app.use() requires middleware functions');
+  }
+
+  // 以上代码对方法参数进行处理，如果第一个参数没有指定路由，则默认为'/'
+  // 然后得到路由或者中间件的处理方法，交由下面的代码处理。
+
+  // setup router
+  // 路由初始化
+  this.lazyrouter();
+  var router = this._router;
+
+  fns.forEach(function (fn) {
+    // non-express app
+    // 如果fn为简单方法，直接使用 router.use('/', fn)
+    if (!fn || !fn.handle || !fn.set) {
+      return router.use(path, fn);
+    }
+
+    debug('.use app under %s', path);
+    fn.mountpath = path;
+    fn.parent = this;
+
+    // restore .app property on req and res
+    // 如果 fn 是有 handle 方法，则执行下面的逻辑
+    // 这种就对应使用 app.use 来定义路由的方式，app.use第一个参数是路由，第二个参数就是 router，router和 app 都有 handle、use等方法。
+    router.use(path, function mounted_app(req, res, next) {
+      var orig = req.app;
+      fn.handle(req, res, function (err) {
+        setPrototypeOf(req, orig.request)
+        setPrototypeOf(res, orig.response)
+        next(err);
+      });
+    });
+
+    // mounted an app
+    fn.emit('mount', this);
+  }, this);
+
+  return this;
+};
+</code></pre>
+<h2 id="路由监听">路由监听</h2>
+<p>从上面我们可以看到，app.use 最终都指向了 router.use 或者 router.handle 方法，那就让我们进入 router 的源码一探究竟。router 的源码都在 <code>./lib/router</code> 目录下。</p>
+<p>router 的入口是 index.js，首先入口处定义了 router，定义的方式类似 app 这里就不再贴源码了。下面看一下，router 中被使用的 use 方法。</p>
+<p>router.use 处理方法和 app.use 类似，首先对方法参数做处理。把不一样的部分贴到下面：</p>
+<pre><code class="language-js">var layer = new Layer(path, {
+  sensitive: this.caseSensitive,
+  strict: false,
+  end: false
+}, fn);
+
+layer.route = undefined;
+
+this.stack.push(layer);
+</code></pre>
+<p>首先得到一个 Layer 实例，并且 push 到 this.stack。</p>
+<p>Layer 相关的代码在 layer.js 内，Layer 内定义单个路由处理的相关方法，包括路由是否匹配、处理路由逻辑、错误处理等。在接下来要说到的处理请求会用到，处理请求，主要是 router.handle 方法，在上面提到的 app.handle 最终也是调用了 router.handle 方法。</p>
+<h2 id="处理请求">处理请求</h2>
+<p>router.handle 方法很长。主要功能是遍历 router.stack 内存储的所有路由及其对应的方法，即 layer, 如果匹配到当前用户访问的路由，就通过执行 layer.handle_request 执行路由对应的方法。</p>
+<p>这些路由处理的方法要么是通过 app[method] 定义要么是通过 router[mothod] 定义，这里的 method 是 get、post 这个 HTTP 动词。这些方法定义在 Route 对象下，源代码位于 <code>./lib/router/route.js</code> 内。</p>
+<pre><code class="language-js">// methods 是服务器支持的所有 http 动词
+// 这些方法也被代理到 app 和 router 上，所以 app 和 router 能够直接调用
+methods.forEach(function(method){
+  Route.prototype[method] = function(){
+    var handles = flatten(slice.call(arguments));
+
+    for (var i = 0; i &lt; handles.length; i++) {
+      var handle = handles[i];
+
+      if (typeof handle !== 'function') {
+        var type = toString.call(handle);
+        var msg = 'Route.' + method + '() requires callback functions but got a ' + type;
+        throw new Error(msg);
+      }
+
+      debug('%s %o', method, this.path)
+
+      // router.get('/', function(req, res, next) {
+      //   res.send('respond with a resource');
+      // });
+      var layer = Layer('/', {}, handle);
+      layer.method = method;
+
+      this.methods[method] = true;
+      this.stack.push(layer);
+    }
+
+    return this;
+  };
+});
+</code></pre>
+<p>当直接调用 app.get 等方法时，其实是执行了以下的语句：</p>
+<pre><code class="language-js">var route = this._router.route(path);
+route[method].apply(route, slice.call(arguments, 1));
+</code></pre>
+<p>在执行对应的 route.get 之前，先执行了 router.route:</p>
+<pre><code class="language-js">proto.route = function route(path) {
+  var route = new Route(path);
+
+  var layer = new Layer(path, {
+    sensitive: this.caseSensitive,
+    strict: this.strict,
+    end: true
+  }, route.dispatch.bind(route));
+
+  layer.route = route;
+
+  this.stack.push(layer);
+  return route;
+};
+</code></pre>
+<p>我们看到 Layer 的第三个参数是 route.dispatch，这个方法处理方式类似前面提到的 router.handle，最终都是通过layer 找到匹配的路由并且执行相应的方法。</p>
+<p>所以 Layer 可以看做是一个中间层，起到了承上启下的作用。每个 layer 实例存储一个路由方法，以及这个路由方法对应的路由。当调用 route.dispatch 或者 router.handle 等方法的时候，都要过一遍这个中间层，筛选出用户当前访问的路由，然后做出处理。</p>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2019/1/17, 9:00:11 晚上 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

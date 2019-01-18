@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="重温 XHR">
+    <meta property="twitter:title" content="重温 XHR">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/ajax.jpg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2017/6/6, 12:00:00 凌晨</p>
+        <h1 class="post-title">
+            重温 XHR
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/posts/tags/xhr/">xhr</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>前端几乎所有的业务都离不开 Ajax，页面上 <code>$.ajax</code>、<code>axios</code> 满天飞，恐怕好久没有好好的认识 XMLHttpRequest 这个对象了。XMLHttpRequest 也已经有了好多改变，本文重新认识一下这个老朋友。</p>
+<h2 id="xhr-流程梳理">XHR 流程梳理</h2>
+<ul>
+<li>首先初始初始化 XMLHttpRequest <code>var xhr = new XMLHttpRequest()</code>，在其他操作之前，即可监听 xhr 的状态变化事件。</li>
+</ul>
+<pre><code class="language-js">xhr.onreadystatechange = function() { /* 状态变化事件 */ }
+</code></pre>
+<ul>
+<li>调用 open 方法，初始化请求</li>
+</ul>
+<pre><code class="language-js">// 请求方法，请求地址，是否异步，用户名（可选），密码（可选）
+xhr.open(method, url, async, user, password)
+</code></pre>
+<p>在调用 open 方法之后，可以重写由服务器返回的MIME type，</p>
+<pre><code class="language-js">// 以前使用 xhr 提取图片常见方法
+xhr.overrideMimeType('text/plain; charset=x-user-defined')
+</code></pre>
+<ul>
+<li>修改请求头，发送请求之前可以设置请求的头部</li>
+</ul>
+<pre><code class="language-js">xhr.setRequestHeader(headerName, headerValue)
+</code></pre>
+<ul>
+<li>指定响应格式（xhr2）</li>
+</ul>
+<p>以前 xhr 的响应体，只有xhr.responseText 和 xhr.responseXML，responseXML真的很少用，几乎都是 responseText，JSON.parse 之后用， xhr2 提供了设置响应格式的方法：</p>
+<pre><code class="language-js">// arraybuffer
+// blob
+// document
+// json
+xhr.responseType = 'text'(默认)
+</code></pre>
+<p>设置之后，可以从 <code>xhr.response</code> 取得响应结果，<code>xhr.response</code> 的格式就是指定的格式。</p>
+<ul>
+<li>发送请求</li>
+</ul>
+<pre><code class="language-js">// 要发送的数据
+// xhr.sendAsBinary() [已经废弃](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/sendAsBinary)
+// 
+xhr.send()
+xhr.send(ArrayBuffer data)
+xhr.send(Blob data)
+xhr.send(Document data)
+xhr.send(DOMString? data)
+xhr.send(FormData data)
+// 发送后，可能abort
+xhr.abort()
+</code></pre>
+<ul>
+<li>处理响应结果</li>
+</ul>
+<p>xhr1 中通过监听 onreadystatechange 事件</p>
+<pre><code class="language-js">xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4) {
+        if((xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300) || xhr.status == 304) {
+            // 请求成功
+            handleResponse(xhr.responseText) // 或者 xhr.responseXML
+        } else {
+            // 请求失败
+        }
+    } 
+}
+</code></pre>
+<p>xhr2 增加了几个新的事件，监听 xhr 的进度。</p>
+<pre><code class="language-js">xhr.onprogress = function() {}
+xhr.onload = function() {}
+xhr.onerror = function() {}
+xhr.abort = function() {}
+</code></pre>
+<p>同事也可以监听上传事件</p>
+<pre><code class="language-js">xhr.upload.onprogress = function() {}
+</code></pre>
+<h2 id="实例">实例</h2>
+<p>从实际触发看一些实例。</p>
+<h3 id="简单xhr2-请求">简单xhr2 请求</h3>
+<p>重点关注不同的请求头对请求的影响。推荐 [四种常见的 POST 提交数据方式](四种常见的 POST 提交数据方式)</p>
+<pre><code class="language-js">
+var xhr = new XMLHttpRequest()
+
+xhr.onprogress = function(e) { 
+    console.log('进度：' + e.loaded / e.total)
+}
+xhr.onload = function() {
+    // 请求结束
+    if(xhr.status == 200) {
+        console.log(xhr.response)
+    } else {
+        // handle error
+    }
+}
+xhr.onerror = function(err) {
+    // 不知道何时触发
+}
+xhr.abort = function() {
+    console.log('abort')
+}
+
+// express 服务器为例
+// req.query = { x: HHH }
+xhr.open('post', '/xhr2-post?' + 'x=' + encodeURIComponent('HHH'), true) 
+xhr.responseType = 'json'
+
+// post 请求默认请求头为 application/x-www-form-urlencoded
+// req.body = { z: 123 }
+// 此时如果传入JSON.stringify({ y: 123 })，req.body = { '{y:123}': '' }
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+xhr.send('z=' + encodeURIComponent('123'))
+
+// application/json 请求头
+// req.body = { y: 123 }
+// 如果此时 send 参数传入 y=123, 得到400错误
+xhr.setRequestHeader('Content-Type', 'application/json')
+xhr.send(JSON.stringify({
+    y: 123
+}))
+
+xhr.abort() // 会触发 abort 事件
+</code></pre>
+<h3 id="iframe-上传">iframe 上传</h3>
+<p>xhr2 之前，如果要实现无刷新上传只能借助于 iframe，因为 form 表单只能同步提交。上传进度也一般依赖于轮询。</p>
+<p>iframe 上传就是将 form 表单提交到 iframe 里，在 iframe 里得到服务端返回的数据，形成一种未刷新的假象。</p>
+<pre><code class="language-html">&lt;!--
+target 设置为 iframe 的 name
+--&gt;
+&lt;form id=&quot;form&quot; action=&quot;/upload&quot; target=&quot;frame&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+    &lt;input type=&quot;file&quot; id=&quot;file&quot; name=&quot;file&quot; /&gt; &lt;br /&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;上传&quot; /&gt;
+&lt;/form&gt;
+
+&lt;iframe id=&quot;uploadFrame&quot; name=&quot;frame&quot; style=&quot;display:none;&quot;&gt;&lt;/iframe&gt;
+</code></pre>
+<pre><code class="language-js">window.uploadCallback = function(data) {
+    console.log(data)
+}
+
+var form = document.getElementById('form')
+var frame = document.getElementById('uploadFrame')
+form.onsubmit = function(e) {
+    frame.src = form.action
+
+    frame.onload = function() {
+        var db = frame.contentDocument.body
+        var txt = db.textContent
+        parent.uploadCallback(JSON.parse(txt))
+    }
+}   
+</code></pre>
+<pre><code class="language-js">// 服务器返回一段 js
+// express multer 代码
+app.post('/upload', upload.single('file'), function(req, res) {
+    res.json({
+        code: 200,
+        body: req.file
+    })
+})
+</code></pre>
+<h3 id="html5-文件上传">HTML5 文件上传</h3>
+<p>XHR2 出现之后，异步上传文件变的简单的多。</p>
+<p>form 表单和上面一样，target 属性去掉。</p>
+<pre><code class="language-js">form.onsubmit = function(e) {
+    e.preventDefault()
+
+    // formData 提交
+    var formData = new FormData(form)
+
+    var xhr = new XMLHttpRequest()
+    xhr.open('POST', form.action, true)
+    xhr.responseType = 'json'
+
+    xhr.onload = function() { 
+        if(xhr.status == 200) {
+            console.log(xhr.response)
+        }
+    }
+
+    // 监听上传进度
+    xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+            console.log(e.loaded / e.total)
+        } 
+    }
+
+    xhr.send(formData)
+}
+</code></pre>
+<h2 id="总结">总结</h2>
+<p>重新梳理了下 XHR 的相关知识，清晰了许多。如果需要兼容 IE8 等浏览器，如果加上跨域和 jsonp，就是一个完整的 ajax 库了。比如 <a href="https://github.com/genify/nej/blob/master/doc/AJAX.md" target="_blank" rel="noopener">NEJ 的 Ajax 模块</a>。</p>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2019/1/17, 9:00:11 晚上 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

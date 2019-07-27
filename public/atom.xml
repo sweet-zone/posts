@@ -6,7 +6,7 @@
   <link href="/posts/atom.xml" rel="self"/>
   
   <link href="http://zhaojizong.online/posts/"/>
-  <updated>2019-01-17T13:00:11.000Z</updated>
+  <updated>2019-07-07T09:11:59.000Z</updated>
   <id>http://zhaojizong.online/posts/</id>
   
   <author>
@@ -15,6 +15,72 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>工作四周年</title>
+    <link href="http://zhaojizong.online/posts/2019/07/07/four-years/"/>
+    <id>http://zhaojizong.online/posts/2019/07/07/four-years/</id>
+    <published>2019-07-07T08:45:25.000Z</published>
+    <updated>2019-07-07T09:11:59.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;周六收到公司祝贺入职四周年邮件，一不小心，已经工作四年了。&lt;/p&gt;
+&lt;p&gt;晚上和爸妈视频聊天说起这个事情，爸妈说从你上大学到现在，已经十年了。&lt;/p&gt;
+&lt;p&gt;突然有点恍惚，十年原来真的过的可以很快。&lt;/p&gt;
+&lt;p&gt;十年前，18岁，高考结束，成绩不是很理想，不过最后还是误打误
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我的2018年和我的前端</title>
+    <link href="http://zhaojizong.online/posts/2019/01/20/my2018-fe/"/>
+    <id>http://zhaojizong.online/posts/2019/01/20/my2018-fe/</id>
+    <published>2019-01-20T13:18:06.000Z</published>
+    <updated>2019-01-20T13:28:25.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2019年一开年，就很多小事故，首先这个博客的文章的时间有些错乱了，所以我还是老老实实的 &lt;code&gt;hexo new xx.md&lt;/code&gt; 这样新建博文吧。&lt;/p&gt;
+&lt;p&gt;然后，闹了个线上事故，还好影响不大，不过还是一身冷汗。&lt;/p&gt;
+&lt;p&gt;还有其他事情，很闹心，但不
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ES6 数组去重</title>
+    <link href="http://zhaojizong.online/posts/2019/01/18/how-to-remove-array-duplicates-in-es6/"/>
+    <id>http://zhaojizong.online/posts/2019/01/18/how-to-remove-array-duplicates-in-es6/</id>
+    <published>2019-01-18T06:10:02.000Z</published>
+    <updated>2019-01-18T06:14:15.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;原文地址：&lt;a href=&quot;https://medium.com/dailyjs/how-to-remove-array-duplicates-in-es6-5daa8789641c&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;How to Remove
+      
+    
+    </summary>
+    
+    
+      <category term="ES6" scheme="http://zhaojizong.online/posts/tags/ES6/"/>
+    
+  </entry>
   
   <entry>
     <title>妃英理养的猫，叫五郎</title>
@@ -36,6 +102,29 @@
     
     
       <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nodejs 微信公众号开发</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/eggjs-wechat-mp/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/eggjs-wechat-mp/</id>
+    <published>2019-01-17T13:00:11.000Z</published>
+    <updated>2019-01-17T13:00:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;时至今日，微信公众号与前端息息相关，很难想象还有什么项目不搭微信这个车。本文对 Nodejs 微信公众号开发进行简单的介绍。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;下面讲到基本都是认证过的公众号，请在测试时确认。&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;代码使用 eggjs。&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://zhaojizong.online/posts/tags/nodejs/"/>
     
   </entry>
   
@@ -88,29 +177,6 @@ app.ge
   </entry>
   
   <entry>
-    <title>Nodejs 微信公众号开发</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/eggjs-wechat-mp/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/eggjs-wechat-mp/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;时至今日，微信公众号与前端息息相关，很难想象还有什么项目不搭微信这个车。本文对 Nodejs 微信公众号开发进行简单的介绍。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;下面讲到基本都是认证过的公众号，请在测试时确认。&lt;/strong&gt;&lt;br&gt;
-&lt;strong&gt;代码使用 eggjs。&lt;/
-      
-    
-    </summary>
-    
-    
-      <category term="nodejs" scheme="http://zhaojizong.online/posts/tags/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
     <title>基于 Gulp 实现前端 Server</title>
     <link href="http://zhaojizong.online/posts/2019/01/17/gms/"/>
     <id>http://zhaojizong.online/posts/2019/01/17/gms/</id>
@@ -128,6 +194,28 @@ app.ge
     
     
       <category term="gulp" scheme="http://zhaojizong.online/posts/tags/gulp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>写在生日这一天</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/my-birthday/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/my-birthday/</id>
+    <published>2019-01-17T13:00:11.000Z</published>
+    <updated>2019-01-17T13:00:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2017年3月11日，阴。农历二月十四，今天我生日。&lt;/p&gt;
+&lt;p&gt;虽然公司部门生日会，以及现在好多人都是按照阳历来过生日，但我一直喜欢老家的传统，农历过生日。其实并没有对自己今年的生日抱多大的希望，自从一个人开始生活后，就对各种节日包括自己的生日并没有什么感觉了。不过我也
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
     
   </entry>
   
@@ -155,9 +243,9 @@ app.ge
   </entry>
   
   <entry>
-    <title>详解 Webpack（下）</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/a-detailed-introduction-to-webpack-2/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/a-detailed-introduction-to-webpack-2/</id>
+    <title>我和前端的2017</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/my-fe-and-me/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/my-fe-and-me/</id>
     <published>2019-01-17T13:00:11.000Z</published>
     <updated>2019-01-17T13:00:11.000Z</updated>
     
@@ -165,53 +253,8 @@ app.ge
     
       
       
-        &lt;p&gt;JavaScript 模块打包工具已经出现有一段时间了。RequireJS 在2009年完成了第一次提交，然后 Browserify 随之出现，从那时候起相继出现了各种模块打包工具。在这些里面，webpack脱颖而出。如果你还不熟悉它，我希望这篇文章可以帮你开始使用这个强大
-      
-    
-    </summary>
-    
-    
-      <category term="webpack" scheme="http://zhaojizong.online/posts/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>我眼中的 Electron</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/electron-in-my-view/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/electron-in-my-view/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;这是去年年底写的关于 Electron 的总结，搬运到新的博客里面，做了微小的修改。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;之前发过一个装逼的朋友圈：感谢 Electron，我现在有两个身份了：前端开发和 Mac 端开发。&lt;/p&gt;
-&lt;p&gt;今年开始了一个全新的产品，但项目组并没有 Mac 
-      
-    
-    </summary>
-    
-    
-      <category term="electron" scheme="http://zhaojizong.online/posts/tags/electron/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>写在生日这一天</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/my-birthday/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/my-birthday/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;2017年3月11日，阴。农历二月十四，今天我生日。&lt;/p&gt;
-&lt;p&gt;虽然公司部门生日会，以及现在好多人都是按照阳历来过生日，但我一直喜欢老家的传统，农历过生日。其实并没有对自己今年的生日抱多大的希望，自从一个人开始生活后，就对各种节日包括自己的生日并没有什么感觉了。不过我也
+        &lt;p&gt;16年其实一直在做 Electron 的桌面应用（Mac 为主），春节后也一直在做，那时候重心开始放在内嵌 webview 的开发，开始探索如何更好的给 web 应用提供接口，更好的展示 web 内的应用，并且随着内置的云盘和新闻项目，也有了一些实践经验。&lt;/p&gt;
+&lt;p&gt;紧
       
     
     </summary>
@@ -253,28 +296,6 @@ app.ge
   </entry>
   
   <entry>
-    <title>我和前端的2017</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/my-fe-and-me/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/my-fe-and-me/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;16年其实一直在做 Electron 的桌面应用（Mac 为主），春节后也一直在做，那时候重心开始放在内嵌 webview 的开发，开始探索如何更好的给 web 应用提供接口，更好的展示 web 内的应用，并且随着内置的云盘和新闻项目，也有了一些实践经验。&lt;/p&gt;
-&lt;p&gt;紧
-      
-    
-    </summary>
-    
-    
-      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
-    
-  </entry>
-  
-  <entry>
     <title>最近的状态</title>
     <link href="http://zhaojizong.online/posts/2019/01/17/myself-recently/"/>
     <id>http://zhaojizong.online/posts/2019/01/17/myself-recently/</id>
@@ -293,30 +314,6 @@ app.ge
     
     
       <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>常用排序查找算法 JavaScript 实现</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/sort-search/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/sort-search/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;一直没有对算法进行系统的了解，所以在这里对常用算法（排序和查找）做一些整理。&lt;/p&gt;
-&lt;h2 id=&quot;冒泡排序&quot;&gt;冒泡排序&lt;/h2&gt;
-&lt;p&gt;冒泡排序，顾名思义，在多次循环中，小的数字会浮到数组左侧，大的数组则慢慢沉下去。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;lang
-      
-    
-    </summary>
-    
-    
-      <category term="algorithm" scheme="http://zhaojizong.online/posts/tags/algorithm/"/>
     
   </entry>
   
@@ -392,6 +389,51 @@ app.ge
   </entry>
   
   <entry>
+    <title>详解 Webpack（下）</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/a-detailed-introduction-to-webpack-2/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/a-detailed-introduction-to-webpack-2/</id>
+    <published>2019-01-17T13:00:11.000Z</published>
+    <updated>2019-01-17T13:00:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;JavaScript 模块打包工具已经出现有一段时间了。RequireJS 在2009年完成了第一次提交，然后 Browserify 随之出现，从那时候起相继出现了各种模块打包工具。在这些里面，webpack脱颖而出。如果你还不熟悉它，我希望这篇文章可以帮你开始使用这个强大
+      
+    
+    </summary>
+    
+    
+      <category term="webpack" scheme="http://zhaojizong.online/posts/tags/webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我眼中的 Electron</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/electron-in-my-view/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/electron-in-my-view/</id>
+    <published>2019-01-17T13:00:11.000Z</published>
+    <updated>2019-01-17T13:00:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这是去年年底写的关于 Electron 的总结，搬运到新的博客里面，做了微小的修改。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;之前发过一个装逼的朋友圈：感谢 Electron，我现在有两个身份了：前端开发和 Mac 端开发。&lt;/p&gt;
+&lt;p&gt;今年开始了一个全新的产品，但项目组并没有 Mac 
+      
+    
+    </summary>
+    
+    
+      <category term="electron" scheme="http://zhaojizong.online/posts/tags/electron/"/>
+    
+  </entry>
+  
+  <entry>
     <title>详解 Webpack（上）</title>
     <link href="http://zhaojizong.online/posts/2019/01/17/a-detailed-introduction-to-webpack-1/"/>
     <id>http://zhaojizong.online/posts/2019/01/17/a-detailed-introduction-to-webpack-1/</id>
@@ -424,49 +466,6 @@ app.ge
       
       
         &lt;p&gt;ECMAScript 6（或者叫 ECMAScript 2015）是 ECMAScript 的最新标准，极大的提高了 JavaScript 中处理参数的能力。现在我们可以使用 rest 参数（rest parameters）、默认值（default values）和解构（d
-      
-    
-    </summary>
-    
-    
-      <category term="ES6" scheme="http://zhaojizong.online/posts/tags/ES6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaScript 中的 this</title>
-    <link href="http://zhaojizong.online/posts/2017/09/21/javaScript-this/"/>
-    <id>http://zhaojizong.online/posts/2017/09/21/javaScript-this/</id>
-    <published>2017-09-21T12:04:00.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;JavaScript中 的 this 是一个很神奇的存在，要确定 this 到底指向的谁并不简单，最近拜读了你不知道的 JavaScript，书中完整了讨论了各种情况。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;this&lt;/strong&gt; 是在运行时进行绑定的，并不是在编写时绑定，它的
-      
-    
-    </summary>
-    
-    
-      <category term="javascript" scheme="http://zhaojizong.online/posts/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>async &amp; await</title>
-    <link href="http://zhaojizong.online/posts/2017/09/14/async-and-await/"/>
-    <id>http://zhaojizong.online/posts/2017/09/14/async-and-await/</id>
-    <published>2017-09-14T11:27:00.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://davidwalsh.name/promises&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;JavaScript Promises&lt;/a&gt;的出现，让我们可以走出回调地狱，着实惊艳。Promises 允许我们更好的引入和
       
     
     </summary>

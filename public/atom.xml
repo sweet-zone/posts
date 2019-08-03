@@ -41,6 +41,29 @@
   </entry>
   
   <entry>
+    <title>vue ssr 实践</title>
+    <link href="http://zhaojizong.online/posts/2019/07/06/vue-ssr/"/>
+    <id>http://zhaojizong.online/posts/2019/07/06/vue-ssr/</id>
+    <published>2019-07-06T08:16:09.000Z</published>
+    <updated>2019-07-27T02:30:25.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;页面渲染历史&quot;&gt;页面渲染历史&lt;/h2&gt;
+&lt;p&gt;页面渲染的历史就是前端努力摆脱后端的历史。&lt;/p&gt;
+&lt;p&gt;早些时候，没有前后端之分，后端自己套模板写页面，稍微经验多些年岁的后端程序员都是有自己写页面的经历的经历的。（那些年，图书馆还流行网页设计三剑客，asp 生拖硬
+      
+    
+    </summary>
+    
+    
+      <category term="ssr" scheme="http://zhaojizong.online/posts/tags/ssr/"/>
+    
+  </entry>
+  
+  <entry>
     <title>我的2018年和我的前端</title>
     <link href="http://zhaojizong.online/posts/2019/01/20/my2018-fe/"/>
     <id>http://zhaojizong.online/posts/2019/01/20/my2018-fe/</id>
@@ -79,6 +102,31 @@
     
     
       <category term="ES6" scheme="http://zhaojizong.online/posts/tags/ES6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>跨域读写 Cookie</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/cors-cookie/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/cors-cookie/</id>
+    <published>2019-01-17T13:00:11.000Z</published>
+    <updated>2019-01-17T13:00:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;因为 CORS（HTTP访问控制）的出现，跨域请求变的简单了很多，只需要服务器设置几个 response header 就可以轻松实现跨域访问。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;// nodejs express 简单实现
+app.ge
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://zhaojizong.online/posts/tags/JavaScript/"/>
+    
+      <category term="XHR" scheme="http://zhaojizong.online/posts/tags/XHR/"/>
     
   </entry>
   
@@ -129,31 +177,6 @@
   </entry>
   
   <entry>
-    <title>跨域读写 Cookie</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/cors-cookie/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/cors-cookie/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;因为 CORS（HTTP访问控制）的出现，跨域请求变的简单了很多，只需要服务器设置几个 response header 就可以轻松实现跨域访问。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;// nodejs express 简单实现
-app.ge
-      
-    
-    </summary>
-    
-    
-      <category term="JavaScript" scheme="http://zhaojizong.online/posts/tags/JavaScript/"/>
-    
-      <category term="XHR" scheme="http://zhaojizong.online/posts/tags/XHR/"/>
-    
-  </entry>
-  
-  <entry>
     <title>关于跨域</title>
     <link href="http://zhaojizong.online/posts/2019/01/17/cross-domain/"/>
     <id>http://zhaojizong.online/posts/2019/01/17/cross-domain/</id>
@@ -198,28 +221,6 @@ app.ge
   </entry>
   
   <entry>
-    <title>写在生日这一天</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/my-birthday/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/my-birthday/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;2017年3月11日，阴。农历二月十四，今天我生日。&lt;/p&gt;
-&lt;p&gt;虽然公司部门生日会，以及现在好多人都是按照阳历来过生日，但我一直喜欢老家的传统，农历过生日。其实并没有对自己今年的生日抱多大的希望，自从一个人开始生活后，就对各种节日包括自己的生日并没有什么感觉了。不过我也
-      
-    
-    </summary>
-    
-    
-      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
-    
-  </entry>
-  
-  <entry>
     <title>哈士奇 是如何 HOOK 你的 Git 的</title>
     <link href="http://zhaojizong.online/posts/2019/01/17/husky-git-hook/"/>
     <id>http://zhaojizong.online/posts/2019/01/17/husky-git-hook/</id>
@@ -239,6 +240,28 @@ app.ge
     
     
       <category term="Git" scheme="http://zhaojizong.online/posts/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>写在生日这一天</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/my-birthday/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/my-birthday/</id>
+    <published>2019-01-17T13:00:11.000Z</published>
+    <updated>2019-01-17T13:00:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2017年3月11日，阴。农历二月十四，今天我生日。&lt;/p&gt;
+&lt;p&gt;虽然公司部门生日会，以及现在好多人都是按照阳历来过生日，但我一直喜欢老家的传统，农历过生日。其实并没有对自己今年的生日抱多大的希望，自从一个人开始生活后，就对各种节日包括自己的生日并没有什么感觉了。不过我也
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
     
   </entry>
   
@@ -318,6 +341,28 @@ app.ge
   </entry>
   
   <entry>
+    <title>塞尔达传说 - 荒野之息</title>
+    <link href="http://zhaojizong.online/posts/2019/01/17/the-legend-of-zelda-breath-of-the-wild/"/>
+    <id>http://zhaojizong.online/posts/2019/01/17/the-legend-of-zelda-breath-of-the-wild/</id>
+    <published>2019-01-17T13:00:11.000Z</published>
+    <updated>2019-01-17T13:00:11.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;自从入手 switch 就一直沉迷于塞尔达传说 荒野之息中无法自拔，大概已经 200+ 小时了。（这不是我好久不更新技术文章的理由&lt;sub&gt;斜眼&lt;/sub&gt;&lt;/p&gt;
+&lt;p&gt;switch，意为切换，掌机模式和 TV 模式随时切换，我觉得这才是游戏机的本质，不限制你的行为。同样
+      
+    
+    </summary>
+    
+    
+      <category term="game" scheme="http://zhaojizong.online/posts/tags/game/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Sublime Text 备份配置</title>
     <link href="http://zhaojizong.online/posts/2019/01/17/sublime-bf/"/>
     <id>http://zhaojizong.online/posts/2019/01/17/sublime-bf/</id>
@@ -339,28 +384,6 @@ app.ge
     
     
       <category term="editor" scheme="http://zhaojizong.online/posts/tags/editor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>塞尔达传说 - 荒野之息</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/the-legend-of-zelda-breath-of-the-wild/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/the-legend-of-zelda-breath-of-the-wild/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;自从入手 switch 就一直沉迷于塞尔达传说 荒野之息中无法自拔，大概已经 200+ 小时了。（这不是我好久不更新技术文章的理由&lt;sub&gt;斜眼&lt;/sub&gt;&lt;/p&gt;
-&lt;p&gt;switch，意为切换，掌机模式和 TV 模式随时切换，我觉得这才是游戏机的本质，不限制你的行为。同样
-      
-    
-    </summary>
-    
-    
-      <category term="game" scheme="http://zhaojizong.online/posts/tags/game/"/>
     
   </entry>
   
@@ -451,27 +474,6 @@ app.ge
     
     
       <category term="webpack" scheme="http://zhaojizong.online/posts/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>如何使用 ES6 中的参数</title>
-    <link href="http://zhaojizong.online/posts/2019/01/17/how-to-use-arguments-and-parameters-in-es6/"/>
-    <id>http://zhaojizong.online/posts/2019/01/17/how-to-use-arguments-and-parameters-in-es6/</id>
-    <published>2019-01-17T13:00:11.000Z</published>
-    <updated>2019-01-17T13:00:11.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;ECMAScript 6（或者叫 ECMAScript 2015）是 ECMAScript 的最新标准，极大的提高了 JavaScript 中处理参数的能力。现在我们可以使用 rest 参数（rest parameters）、默认值（default values）和解构（d
-      
-    
-    </summary>
-    
-    
-      <category term="ES6" scheme="http://zhaojizong.online/posts/tags/ES6/"/>
     
   </entry>
   

@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: 关于跨域
 banner: assets/img/cross-domain.jpg

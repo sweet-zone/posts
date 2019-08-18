@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: 塞尔达传说 - 荒野之息
 banner: assets/img/zelda.jpg

@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: eggjs 远程调试
 banner: assets/img/remote.jpg

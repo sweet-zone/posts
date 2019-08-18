@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: 新的博客，新的一年
 banner: assets/img/new-year-new-blog.jpeg

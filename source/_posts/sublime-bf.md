@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: Sublime Text 备份配置
 banner: assets/img/sublime.jpeg

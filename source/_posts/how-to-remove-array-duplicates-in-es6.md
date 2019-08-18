@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: ES6 数组去重
 banner: assets/img/cookie.jpeg

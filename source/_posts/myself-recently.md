@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: 最近的状态
 banner: assets/img/myself-recently.jpeg

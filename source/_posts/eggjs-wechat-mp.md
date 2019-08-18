@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: Nodejs 微信公众号开发
 banner: assets/img/egg-wechat-mp.jpg

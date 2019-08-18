@@ -1,4 +1,4 @@
-
+---
 layout: post
 title:  重温 XHR
 banner: assets/img/ajax.jpg

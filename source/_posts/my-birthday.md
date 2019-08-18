@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: 写在生日这一天
 banner: assets/img/birthday.jpg

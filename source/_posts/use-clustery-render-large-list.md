@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: 前端长列表渲染优化
 banner: assets/img/performance.jpg

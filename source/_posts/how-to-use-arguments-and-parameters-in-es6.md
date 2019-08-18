@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: 如何使用 ES6 中的参数
 banner: assets/img/es6.jpg

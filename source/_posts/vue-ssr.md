@@ -1,4 +1,4 @@
-
+---
 layout: post
 title: vue ssr 实践
 banner: assets/img/vue-ssr.jpg

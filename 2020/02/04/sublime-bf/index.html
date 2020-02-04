@@ -1,0 +1,188 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="Sublime Text 备份配置">
+    <meta property="twitter:title" content="Sublime Text 备份配置">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/sublime.jpeg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2020/2/4, 4:57:33 下午</p>
+        <h1 class="post-title">
+            Sublime Text 备份配置
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/editor/">editor</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>一直都是 Sublime Text 3 陪伴，备份一下配置和相关插件，特此记录。</p>
+<h2 id="配置列表">配置列表</h2>
+<pre><code>{
+    &quot;caret_extra_bottom&quot;: 3,
+    &quot;caret_extra_top&quot;: 3,
+    &quot;caret_extra_width&quot;: 2,
+    &quot;color_scheme&quot;: &quot;Packages/Boxy Theme/schemes/Boxy Nova.tmTheme&quot;,
+    &quot;font_face&quot;: &quot;Source Code Pro&quot;,
+    &quot;font_size&quot;: 15,
+    &quot;highlight_line&quot;: true,
+    &quot;ignored_packages&quot;:
+    [
+        &quot;CSS&quot;,
+        &quot;Markdown&quot;,
+        &quot;Vintage&quot;
+    ],
+    &quot;line_padding_bottom&quot;: 4,
+    &quot;line_padding_top&quot;: 4,
+    &quot;open_files_in_new_window&quot;: false,
+    &quot;overlay_scroll_bars&quot;: &quot;enabled&quot;,
+    &quot;theme&quot;: &quot;Boxy Nova.sublime-theme&quot;,
+    &quot;theme_accent_cyan&quot;: true,
+    &quot;theme_bar&quot;: true,
+    &quot;theme_bar_logo_atomized&quot;: true,
+    &quot;theme_bar_shadow_hidden&quot;: true,
+    &quot;theme_button_rounded&quot;: true,
+    &quot;theme_dirty_colored_always&quot;: true,
+    &quot;theme_icons_materialized&quot;: true,
+    &quot;theme_scrollbar_rounded&quot;: true,
+    &quot;theme_sidebar_highlight_selected_text_only&quot;: true,
+    &quot;theme_sidebar_highlight_text_only&quot;: true,
+    &quot;theme_sidebar_indent_top_level_disabled&quot;: true,
+    &quot;theme_size_md&quot;: true,
+    &quot;theme_tab_highlight_text_only&quot;: true,
+    &quot;theme_tab_selected_transparent&quot;: true,
+    &quot;theme_tab_selected_underlined&quot;: true,
+    &quot;theme_tab_size_xxl&quot;: true,
+    &quot;theme_unified&quot;: true,
+    &quot;translate_tabs_to_spaces&quot;: true,
+    &quot;word_wrap&quot;: true
+}
+</code></pre>
+<h2 id="package-control">Package Control</h2>
+<p><strong>首先安装 <a href="https://packagecontrol.io/installation" target="_blank" rel="noopener">Package Control</a></strong></p>
+<h2 id="主题">主题</h2>
+<p><a href="https://github.com/ihodev/sublime-boxy" target="_blank" rel="noopener">Boxy</a>，正像作者所说，无比性感。</p>
+<p>图标依赖 <a href="https://packagecontrol.io/packages/A%20File%20Icon" target="_blank" rel="noopener">A File Icon</a></p>
+<h2 id="插件">插件</h2>
+<ul>
+<li>MarkDown Editing</li>
+<li>SideBarFolders</li>
+<li>SideBarEnhancements</li>
+<li>Emmet</li>
+<li>DocBlocker</li>
+</ul>
+<h2 id="文档">文档</h2>
+<ul>
+<li><a href="http://sublime-text.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener">Sublime Text 非官方中文文档</a></li>
+<li><a href="https://segmentfault.com/a/1190000004248611" target="_blank" rel="noopener">如何优雅地使用 Sublime Text</a></li>
+</ul>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2020/2/4, 4:57:33 下午 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

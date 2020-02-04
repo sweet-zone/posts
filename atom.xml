@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>DarkZone&#39;Home</title>
+  
+  
+  <link href="/posts/atom.xml" rel="self"/>
+  
+  <link href="http://zhaojizong.online/posts/"/>
+  <updated>2020-02-04T08:57:33.250Z</updated>
+  <id>http://zhaojizong.online/posts/</id>
+  
+  <author>
+    <name>DarkZone</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Sublime Text 备份配置</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/sublime-bf/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/sublime-bf/</id>
+    <published>2020-02-04T08:57:33.250Z</published>
+    <updated>2020-02-04T08:57:33.250Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;一直都是 Sublime Text 3 陪伴，备份一下配置和相关插件，特此记录。&lt;/p&gt;
+&lt;h2 id=&quot;配置列表&quot;&gt;配置列表&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;caret_extra_bottom&amp;quot;: 3,
+    &amp;quot;caret_
+      
+    
+    </summary>
+    
+    
+      <category term="editor" scheme="http://zhaojizong.online/posts/tags/editor/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue ssr 实践</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/vue-ssr/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/vue-ssr/</id>
+    <published>2020-02-04T08:57:33.250Z</published>
+    <updated>2020-02-04T08:57:33.251Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;页面渲染历史&quot;&gt;页面渲染历史&lt;/h2&gt;
+&lt;p&gt;页面渲染的历史就是前端努力摆脱后端的历史。&lt;/p&gt;
+&lt;p&gt;早些时候，没有前后端之分，后端自己套模板写页面，稍微经验多些年岁的后端程序员都是有自己写页面的经历的经历的。（那些年，图书馆还流行网页设计三剑客，asp 生拖硬
+      
+    
+    </summary>
+    
+    
+      <category term="ssr" scheme="http://zhaojizong.online/posts/tags/ssr/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端长列表渲染优化</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/use-clustery-render-large-list/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/use-clustery-render-large-list/</id>
+    <published>2020-02-04T08:57:33.250Z</published>
+    <updated>2020-02-04T08:57:33.250Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;对于长列表，一般的应用可以通过分页解决。然而现在很多的应用列表部分可能是滚动加载的，随着滚动，列表项越来越多，影响性能和体验，尤其是移动设备上；另一种是IM应用，像会话列表、好友列表、群成员列表通常会一次性加载。在这些情况下，对于长列表的优化就显得很有必要。&lt;/p&gt;
+&lt;p&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://zhaojizong.online/posts/tags/JavaScript/"/>
+    
+      <category term="performance" scheme="http://zhaojizong.online/posts/tags/performance/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>哈士奇 是如何 HOOK 你的 Git 的</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/husky-git-hook/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/husky-git-hook/</id>
+    <published>2020-02-04T08:57:33.249Z</published>
+    <updated>2020-02-04T08:57:33.249Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;哈士奇，蠢萌蠢萌的，我们常常用它来做 Git hook，哈哈哈。&lt;/p&gt;
+&lt;h2 id=&quot;git-hook&quot;&gt;Git Hook&lt;/h2&gt;
+&lt;p&gt;Git hook 是在 Git 仓库中特定动作（commit、push 等）发生时自动运行的脚本。在初始化仓库时，Git 会自动在
+      
+    
+    </summary>
+    
+    
+      <category term="Git" scheme="http://zhaojizong.online/posts/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我和我的2018</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/my2018/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/my2018/</id>
+    <published>2020-02-04T08:57:33.249Z</published>
+    <updated>2020-02-04T08:57:33.249Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;我叫。。&lt;br&gt;
+算了我叫什么并不重要。&lt;br&gt;
+今年。。&lt;br&gt;
+算了我今年几岁也不重要。&lt;br&gt;
+说回主角&lt;br&gt;
+2018，&lt;br&gt;
+这个年末，很冷，有雪。&lt;br&gt;
+记得来杭州第一年冬天我是不用开空调的。&lt;br&gt;
+2018年，&lt;br&gt;
+对友情越来越重。&lt;br&gt;
+对生活
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我眼中的 Electron</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/electron-in-my-view/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/electron-in-my-view/</id>
+    <published>2020-02-04T08:57:33.248Z</published>
+    <updated>2020-02-04T08:57:33.248Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这是去年年底写的关于 Electron 的总结，搬运到新的博客里面，做了微小的修改。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;之前发过一个装逼的朋友圈：感谢 Electron，我现在有两个身份了：前端开发和 Mac 端开发。&lt;/p&gt;
+&lt;p&gt;今年开始了一个全新的产品，但项目组并没有 Mac 
+      
+    
+    </summary>
+    
+    
+      <category term="electron" scheme="http://zhaojizong.online/posts/tags/electron/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ES6 数组去重</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/how-to-remove-array-duplicates-in-es6/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/how-to-remove-array-duplicates-in-es6/</id>
+    <published>2020-02-04T08:57:33.248Z</published>
+    <updated>2020-02-04T08:57:33.248Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;原文地址：&lt;a href=&quot;https://medium.com/dailyjs/how-to-remove-array-duplicates-in-es6-5daa8789641c&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;How to Remove
+      
+    
+    </summary>
+    
+    
+      <category term="ES6" scheme="http://zhaojizong.online/posts/tags/ES6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>基于 Gulp 实现前端 Server</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/gms/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/gms/</id>
+    <published>2020-02-04T08:57:33.248Z</published>
+    <updated>2020-02-04T08:57:33.248Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Web开发是一个前后端合作的工作，但在开发的前期，双方约定好接口和数据后，就进入了各自的开发，这时候前端就需要有自己的开发环境，能够与最后和后端联调时后端提供的服务器能力接近，并且能够简化前端的工作流程，自动化完成相关任务。gulp就是这样一个工具，允许我们编写一系列的ta
+      
+    
+    </summary>
+    
+    
+      <category term="gulp" scheme="http://zhaojizong.online/posts/tags/gulp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>如何使用 ES6 中的参数</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/how-to-use-arguments-and-parameters-in-es6/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/how-to-use-arguments-and-parameters-in-es6/</id>
+    <published>2020-02-04T08:57:33.248Z</published>
+    <updated>2020-02-04T08:57:33.248Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;ECMAScript 6（或者叫 ECMAScript 2015）是 ECMAScript 的最新标准，极大的提高了 JavaScript 中处理参数的能力。现在我们可以使用 rest 参数（rest parameters）、默认值（default values）和解构（d
+      
+    
+    </summary>
+    
+    
+      <category term="ES6" scheme="http://zhaojizong.online/posts/tags/ES6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>详解 Webpack（下）</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/a-detailed-introduction-to-webpack-2/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/a-detailed-introduction-to-webpack-2/</id>
+    <published>2020-02-04T08:57:33.247Z</published>
+    <updated>2020-02-04T08:57:33.247Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;JavaScript 模块打包工具已经出现有一段时间了。RequireJS 在2009年完成了第一次提交，然后 Browserify 随之出现，从那时候起相继出现了各种模块打包工具。在这些里面，webpack脱颖而出。如果你还不熟悉它，我希望这篇文章可以帮你开始使用这个强大
+      
+    
+    </summary>
+    
+    
+      <category term="webpack" scheme="http://zhaojizong.online/posts/tags/webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>妃英理养的猫，叫五郎</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/conan/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/conan/</id>
+    <published>2020-02-04T08:57:33.247Z</published>
+    <updated>2020-02-04T08:57:33.247Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这还是我第一次在电影院看剧场版的名侦探柯南。晚8点50场，8点半买票。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/posts/assets/img/611541861556_.pic_hd.jpg&quot; alt=&quot;img&quot;&gt;&lt;/p&gt;
+&lt;p&gt;上座率很低，8点47进场，只有我一人，最后，
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于跨域</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/cross-domain/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/cross-domain/</id>
+    <published>2020-02-04T08:57:33.247Z</published>
+    <updated>2020-02-04T08:57:33.247Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;跨域在 Web 开发中很常见，但浏览器并不想让你方便的跨域，必须要满足一定条件才可以。网上挺多的文章说这个事，有些文章讲的比较全面比较细致，比如&lt;a href=&quot;http://www.cnblogs.com/rainman/archive/2011/02/20/195932
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://zhaojizong.online/posts/tags/JavaScript/"/>
+    
+      <category term="XHR" scheme="http://zhaojizong.online/posts/tags/XHR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>跨域读写 Cookie</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/cors-cookie/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/cors-cookie/</id>
+    <published>2020-02-04T08:57:33.247Z</published>
+    <updated>2020-02-04T08:57:33.247Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;因为 CORS（HTTP访问控制）的出现，跨域请求变的简单了很多，只需要服务器设置几个 response header 就可以轻松实现跨域访问。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-js&quot;&gt;// nodejs express 简单实现
+app.ge
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://zhaojizong.online/posts/tags/JavaScript/"/>
+    
+      <category term="XHR" scheme="http://zhaojizong.online/posts/tags/XHR/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>详解 Webpack（上）</title>
+    <link href="http://zhaojizong.online/posts/2020/02/04/a-detailed-introduction-to-webpack-1/"/>
+    <id>http://zhaojizong.online/posts/2020/02/04/a-detailed-introduction-to-webpack-1/</id>
+    <published>2020-02-04T08:57:33.246Z</published>
+    <updated>2020-02-04T08:57:33.247Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;JavaScript 模块打包工具已经出现有一段时间了。RequireJS 在2009年完成了第一次提交，然后 Browserify 随之出现，从那时候起相继出现了各种模块打包工具。在这些里面，&lt;em&gt;webpack&lt;/em&gt;脱颖而出。如果你还不熟悉它，我希望这篇文章可以帮
+      
+    
+    </summary>
+    
+    
+      <category term="webpack" scheme="http://zhaojizong.online/posts/tags/webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>我的2018年和我的前端</title>
+    <link href="http://zhaojizong.online/posts/2019/01/20/my2018-fe/"/>
+    <id>http://zhaojizong.online/posts/2019/01/20/my2018-fe/</id>
+    <published>2019-01-20T13:18:06.000Z</published>
+    <updated>2020-02-04T08:57:33.249Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;2019年一开年，就很多小事故，首先这个博客的文章的时间有些错乱了，所以我还是老老实实的 &lt;code&gt;hexo new xx.md&lt;/code&gt; 这样新建博文吧。&lt;/p&gt;
+&lt;p&gt;然后，闹了个线上事故，还好影响不大，不过还是一身冷汗。&lt;/p&gt;
+&lt;p&gt;还有其他事情，很闹心，但不
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Express 源码简析</title>
+    <link href="http://zhaojizong.online/posts/2017/09/13/express-source-code-analysis/"/>
+    <id>http://zhaojizong.online/posts/2017/09/13/express-source-code-analysis/</id>
+    <published>2017-09-13T15:04:00.000Z</published>
+    <updated>2020-02-04T08:57:33.248Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://github.com/expressjs/express&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Express&lt;/a&gt; 是一个简洁易用的 Nodejs 的 Web 开发框架，我的个人项目：&lt;a href=&quot;http
+      
+    
+    </summary>
+    
+    
+      <category term="nodejs" scheme="http://zhaojizong.online/posts/tags/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>REMEBER</title>
+    <link href="http://zhaojizong.online/posts/2017/06/16/remeber/"/>
+    <id>http://zhaojizong.online/posts/2017/06/16/remeber/</id>
+    <published>2017-06-15T16:00:00.000Z</published>
+    <updated>2020-02-04T08:57:33.250Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;这周周五，决定不加班，在小区外的超市买了饮料、啤酒、雪糕扔进冰箱，买了杨梅。&lt;/p&gt;
+&lt;p&gt;看完了西游伏妖篇，好吧，这电影都好久了。最近讨论的都是异形木乃伊之类的。&lt;/p&gt;
+&lt;p&gt;特效完美，吴亦凡尬戏，女星艳美，剧情反转略干。&lt;/p&gt;
+&lt;p&gt;唐僧忘不掉的段小姐，化为孙悟空的
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>新的博客，新的一年</title>
+    <link href="http://zhaojizong.online/posts/2017/02/26/new-blog-and-new-year/"/>
+    <id>http://zhaojizong.online/posts/2017/02/26/new-blog-and-new-year/</id>
+    <published>2017-02-25T16:00:00.000Z</published>
+    <updated>2017-09-02T02:54:00.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在好多可以写博客的地方混迹过，但每次都不持久（误）。要么就是这个平台压根想不起来（避免挨打，不列举了），要么就是这个平台看起来又老又旧，万年不更新的样子，虽然样式可以自己定制博客园。索性就自己做一个。&lt;/p&gt;
+&lt;p&gt;开始是 fork 了 &lt;a href=&quot;https://g
+      
+    
+    </summary>
+    
+    
+      <category term="life" scheme="http://zhaojizong.online/posts/tags/life/"/>
+    
+  </entry>
+  
+</feed>

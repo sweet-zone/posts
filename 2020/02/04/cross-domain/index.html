@@ -1,0 +1,205 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="关于跨域">
+    <meta property="twitter:title" content="关于跨域">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/cross-domain.jpg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2020/2/4, 4:57:33 下午</p>
+        <h1 class="post-title">
+            关于跨域
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/posts/tags/XHR/">XHR</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>跨域在 Web 开发中很常见，但浏览器并不想让你方便的跨域，必须要满足一定条件才可以。网上挺多的文章说这个事，有些文章讲的比较全面比较细致，比如<a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html" target="_blank" rel="noopener">JavaScript跨域总结与解决办法</a>。本文呢不再去一一详述，只讲述自己工作中涉及到的以及自己的一些看法。</p>
+<h2 id="jsonp">JSONP</h2>
+<p>jQuery 让很多的初学者（包括当年的我）以为 jsonp 是 ajax 的一种。jsonp 其实是利用了 JS 资源可以跨域的特性（和利用 <code>img.src</code> 类似）。</p>
+<p>前端动态创建 script 标签，发起一个 get 请求，和服务端约定好 callback 参数就是一个全局方法。当结果返回之后，就会执行这个全局方法，这里是 <code>jsonpCallback</code>。</p>
+<pre><code class="language-js">function jsonpCallback(data) {
+    console.log(data)
+}
+
+var script = document.createElement('script')
+script.src = 'http://localhost:9003/jsonp?callback=jsonpCallback'
+document.body.appendChild(script)
+</code></pre>
+<p>服务端代码：</p>
+<pre><code class="language-js">app.get('/jsonp', function(req, res) {
+    var callback = req.query.callback
+    res.send(callback + '(' + JSON.stringify({
+        code: 200,
+        msg: 'hello'
+    }) + ')')
+})
+</code></pre>
+<p>jsonp 好处是支持性特别好，但只支持 get 请求。不过都到现在这个时代了，肯定要用 CORS 了。</p>
+<h2 id="http访问控制-cors">HTTP访问控制(CORS)</h2>
+<p>这个是从服务端控制可以跨域访问的域名，更加灵活。</p>
+<pre><code class="language-js">app.get('/cors_url', function(req, res) {
+
+    res.set({
+        'Access-Control-Allow-Origin': 'http://you.com:9005',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Credentials': true
+    })
+
+    res.json({
+        code: 200,
+        msg: 'hello'
+    })
+})
+</code></pre>
+<p>并且还可以附带身份信息 cookies，更多可以看之前的文章：<a href="/2017/06/03/cors-cookie.html">跨域读写 Cookie</a>。</p>
+<h2 id="iframe">iframe</h2>
+<p>iframe 作为前端唯一可以加载外部网页的标签，在跨域界有着不可取代的作用。</p>
+<h3 id="根命名相同-子域名不同">根命名相同，子域名不同</h3>
+<p>这时候需要设置父子页面的 document.domain 为统一根域名即可</p>
+<pre><code class="language-js">document.domain = 'rootDomain'
+</code></pre>
+<h3 id="跨域读写存储">跨域读写存储</h3>
+<p>比如 <a href="http://a.com" target="_blank" rel="noopener">a.com</a> 有些数据 sessionStorage 中，而这些数据在 <a href="http://a.com.hk" target="_blank" rel="noopener">a.com.hk</a> 中使用，这时候需要 <a href="http://a.com" target="_blank" rel="noopener">a.com</a> 写入到 sessionStorage 后，把数据也写入到 <a href="http://b.com" target="_blank" rel="noopener">b.com</a> 的 sessionStorage 中。很明显 <a href="http://a.com" target="_blank" rel="noopener">a.com</a> 下不能直接写，这时候在 <a href="http://a.com" target="_blank" rel="noopener">a.com</a> 前一个 <a href="http://b.com" target="_blank" rel="noopener">b.com</a> 的 iframe，<a href="http://a.com" target="_blank" rel="noopener">a.com</a> 和 <a href="http://b.com" target="_blank" rel="noopener">b.com</a> 互相通知即可。</p>
+<p>互相通知直接使用 <code>window.postMessage</code>，IE8+都是支持的。</p>
+<pre><code class="language-js">// a.com
+// &lt;iframe src=&quot;http://b.com/static/b.html&quot;&gt;&lt;/iframe&gt;
+// 向 iframe 发送消息
+window.onload = function() {
+    // 切记要在 onload 之后
+    window.frames[0].postMessage('hello2', 'http://b.com');
+}
+
+// 接收 iframe 消息
+window.addEventListener('message', function(evt) {
+    sessionStorage.setItem('cors', evt.data)
+}, false);
+
+// ------------------
+
+// b.com
+// 接收消息
+window.addEventListener('message', function(evt) {
+    sessionStorage.setItem('cors', evt.data)
+}, false);
+
+// 向父窗口发送消息
+window.onload = function() {
+    parent.postMessage('hello1', 'http://a.com')
+}
+</code></pre>
+<h2 id="总结">总结</h2>
+<p>对于异步请求，坚决的拥抱 CORS。跨域消息传输坚决的拥抱 postMessage。iframe 这个古老的标签依然充满力量。</p>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2020/2/4, 4:57:33 下午 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

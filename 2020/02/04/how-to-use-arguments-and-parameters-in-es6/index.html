@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="如何使用 ES6 中的参数">
+    <meta property="twitter:title" content="如何使用 ES6 中的参数">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/es6.jpg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2020/2/4, 4:57:33 下午</p>
+        <h1 class="post-title">
+            如何使用 ES6 中的参数
+            
+            <p class="t">译</p>
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/ES6/">ES6</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>ECMAScript 6（或者叫 ECMAScript 2015）是 ECMAScript 的最新标准，极大的提高了 JavaScript 中处理参数的能力。现在我们可以使用 rest 参数（rest parameters）、默认值（default values）和解构（destructuring）以及其他许多新的特性。本文我们将探索参数(arguments)和参数(parameter)的方方面面，看一下ES6是如何对他们改进和提升的。</p>
+<h2 id="arguments-和-parameters">Arguments 和 Parameters</h2>
+<p>arguments 和 Parameters 的含义通常是可以互换的。尽管如此，为了本文的目标，还是要做出区分。在大多数的标准中，函数声明时给出的叫做 parameters（或者叫 formal parameters），而传递给函数的叫做的 arguments（或者叫 actual arguments），看下面的函数：</p>
+<pre><code class="language-js">function foo(param1, param2) {
+    // do something
+}
+foo(10, 20);
+</code></pre>
+<p>在这个函数中，<code>param1</code> 和 <code>param2</code> 是函数的 parameters，而传递给函数的值（<code>10</code> 和 <code>20</code>）是 arguments。</p>
+<p><strong>译者注：本文后面不再区分 arguments 和 parameters，统一译作参数。😂</strong></p>
+<h2 id="扩展运算符">扩展运算符（…)</h2>
+<p>在 ES5 中，<code>apply()</code> 方法可以很方便将数组作为参数传递给函数，经常用于使用 <code>Math.max()</code> 来取得数组的最大值。看下面的代码段：</p>
+<pre><code class="language-js">var myArray = [5, 10, 50];
+Math.max(myArray);    // Error: NaN
+Math.max.apply(Math, myArray);    // 50
+</code></pre>
+<p><code>Math.max()</code> 方法不支持数组，只接受数字作为参数。当数组传递给函数，函数会抛出错误。但是当使用 <code>apply()</code> 方法后，数组变成了一个个单独的数组传递给了函数，所以 <code>Math.max()</code> 就能够正确的执行了。</p>
+<p>幸运的是，ES6 给我们带来了扩展运算符，我们就不必再继续使用 <code>apply()</code> 方法了。我们可以将表达式轻松的展开为多个参数。</p>
+<pre><code class="language-js">var myArray = [5, 10, 50];
+Math.max(...myArray);    // 50
+</code></pre>
+<p>在这里我们通过扩展运算符将 <code>myArray</code> 展开成了一个个单独的值。虽然 ES5 中我们可以通过 <code>apply()</code> 方法来模拟扩展运算符，但是语法上让人迷惑，并且缺少可扩展性。扩展运算符不仅易于使用，还带来了许多新的特性。比如，你可以在函数调用时多次使用扩展运算符，并且还可以和其他参数混合在一起。</p>
+<pre><code class="language-js">function myFunction() {
+  for(var i in arguments){
+    console.log(arguments[i]);
+  }
+}
+var params = [10, 15];
+myFunction(5, ...params, 20, ...[25]);    // 5 10 15 20 25
+</code></pre>
+<p>扩展运算符另一大好处就是他可以很容易的和构造函数（constructor）一起使用：</p>
+<pre><code class="language-js">new Date(...[2016, 5, 6]);    // Mon Jun 06 2016 00:00:00 GMT-0700 (Pacific Daylight Time)
+</code></pre>
+<p>当前我们可以使用 ES5 来重写上面的代码，不过我们需要一个复杂的方法来避免一个类型错误：</p>
+<pre><code class="language-js">new Date.apply(null, [2016, 4, 24]);    // TypeError: Date.apply is not a constructor
+new (Function.prototype.bind.apply(Date, [null].concat([2016, 5, 6])));   // Mon Jun 06 2016 00:00:00 GMT-0700 (Pacific Daylight Time)
+</code></pre>
+<h2 id="rest-参数">REST 参数</h2>
+<p>rest 参数和扩展运算符是一样的语法，但是他不是将数组展开成一个个的参数，而是将一个个参数转换为数组。</p>
+<p><strong>译者注：rest 参数和扩展运算符虽然一样的语法，在这里你就可以看出作者强调的 arguments 和 parameters 的区别了。扩展运算符用于函数调用的参数（arguments）中，而 rest 参数用于函数声明的参数（parameters）中。</strong></p>
+<pre><code class="language-js">function myFunction(...options) {
+     return options;
+}
+myFunction('a', 'b', 'c');      // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]
+</code></pre>
+<p>如果没有提供参数，rest 参数会被设置为空数组：</p>
+<pre><code>function myFunction(...options) {
+     return options;
+}
+myFunction();      // []
+</code></pre>
+<p>当创建可见函数（接受数量可变的参数的函数）的时候，rest 参数就显得十分有用。因为 rest 参数是一个数组，所以可以很方便的替换 <code>arguments</code> 对象（将会在下文讨论）。看下面一个使用 ES5 编写的方法：</p>
+<pre><code class="language-js">function checkSubstrings(string) {
+  for (var i = 1; i &lt; arguments.length; i++) {
+    if (string.indexOf(arguments[i]) === -1) {
+      return false;
+    }
+  }
+  return true;
+}
+checkSubstrings('this is a string', 'is', 'this');   // true
+</code></pre>
+<p>这个函数的作用是检查一个字符串是否包含指定的一系列字符串。这个函数的第一个问题就是，我们必须查看函数体才知道函数接受多个参数。另外 <code>arguments</code> 的迭代必须从 1 开始，因为 <code>arguments[0]</code> 是第一个参数。如果我们稍后给第一参数之后再添加参数，或许我们就忘记更新这个循环了。使用 rest 参数，我们可以很轻易的避开这个问题：</p>
+<pre><code class="language-js">function checkSubstrings(string, ...keys) {
+  for (var key of keys) {
+    if (string.indexOf(key) === -1) {
+      return false;
+    }
+  }
+  return true;
+}
+checkSubstrings('this is a string', 'is', 'this');   // true
+</code></pre>
+<p>函数的输出和上一个函数一样。再重复一次，<code>string</code> 参数作为第一个参数传入，剩下的参数被塞进一个数组并且赋值给了变量 <code>keys</code>。</p>
+<p>使用 rest 参数代替 <code>arguments</code> 不仅提高了代码的可读性，并且避免了 JavaScript 中的<a href="https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments" target="_blank" rel="noopener">性能问题</a>。尽管如此，rest 参数并不能无限制使用，举个例子，它只能是最后一个参数，否则会导致语法错误。</p>
+<pre><code class="language-js">function logArguments(a, ...params, b) {
+        console.log(a, params, b);
+}
+logArguments(5, 10, 15);    // SyntaxError: parameter after rest parameter
+</code></pre>
+<p>另一个限制方法声明时只允许一个 rest 参数：</p>
+<pre><code class="language-js">function logArguments(...param1, ...param2) {
+}
+logArguments(5, 10, 15);    // SyntaxError: parameter after rest parameter
+</code></pre>
+<h2 id="默认值">默认值</h2>
+<h3 id="es5-中的默认参数">ES5 中的默认参数</h3>
+<p>ES5 中 JavaScript 并不支持默认值，但这里有个很简单的实现，使用 <code>OR</code><br>
+运算符（<code>||</code>），我们可以很容易的模拟默认参数，看下面的代码：</p>
+<pre><code class="language-js">function foo(param1, param2) {
+   param1 = param1 || 10;
+   param2 = param2 || 10;
+   console.log(param1, param2);
+}
+foo(5, 5);  // 5 5
+foo(5);    // 5 10
+foo();    // 10 10
+</code></pre>
+<p>这个函数期望接收两个参数，但当无参数调用时，它会使用默认值。在函数内，缺失的参数自动设置为 undefined，所以我们检查这些参数，并给他们设置默认值。为了检测缺失的参数并设置默认值，我们使用 <code>OR</code> 运算符（<code>||</code>）。这个运算符首先检查第一个值，如果是 <a href="https://developer.mozilla.org/en-US/docs/Glossary/Truthy" target="_blank" rel="noopener">truthy</a>，运算符会返回它，否则返回第二个参数。</p>
+<p>这种方法在函数内很常用，但也存在瑕疵。如果传递 <code>0</code> 或者 <code>null</code> 也会返回默认值。因为它们被认为是 falsy 值。所以如果我们确实需要给函数传递 <code>0</code> 或者 <code>null</code>，我们需要换种方法来检测参数是否缺失：</p>
+<pre><code class="language-js">function foo(param1, param2) {
+  if(param1 === undefined){
+    param1 = 10;
+  }
+  if(param2 === undefined){
+    param2 = 10;
+  }
+  console.log(param1, param2);
+}
+foo(0, null);    // 0, null
+foo();    // 10, 10
+</code></pre>
+<p>在这个函数中，通过检查参数的类型是否为 undefined 来确定是否要赋予默认值。这种方法代码量稍微大一些，但更安全，可以让我们给函数传递 <code>0</code> 或者 <code>null</code>。</p>
+<h3 id="es6-中的默认参数">ES6 中的默认参数</h3>
+<p>ES6 中，我们不必再检查参数是否为 undefined 来模拟默认参数，我们可以直接将默认参数函数声明中。</p>
+<pre><code class="language-js">function foo(a = 10, b = 10) {
+  console.log(a, b);
+}
+foo(5);    // 5 10
+foo(0, null);    // 0 null
+</code></pre>
+<p>正如你所看到的，忽略参数返回了默认值，但传递 <code>0</code> 或者 <code>null</code> 并没有。我们甚至可以使用函数来产生参数的默认值：</p>
+<pre><code class="language-js">function getParam() {
+    alert(&quot;getParam was called&quot;);
+    return 3;
+}
+function multiply(param1, param2 = getParam()) {
+    return param1 * param2;
+}
+multiply(2, 5);     // 10
+multiply(2);     // 6 (also displays an alert dialog)
+</code></pre>
+<p>需要注意的是，只有缺少第二个参数的时候，<code>gegParam</code> 方法才会执行，所以当我们使用两个参数 <code>multiply()</code> 的时候并不会弹出 alert。</p>
+<p>默认参数另一个有意思的特性是在方法声明是可以引用其他参数和变量作为默认参数：</p>
+<pre><code class="language-js">function myFunction(a=10, b=a) {
+     console.log('a = ' + a + '; b = '  + b);
+}
+myFunction();     // a=10; b=10
+myFunction(22);    // a=22; b=22
+myFunction(2, 4);    // a=2; b=4
+</code></pre>
+<p>甚至可以在函数声明的时候执行操作符：</p>
+<pre><code class="language-js">function myFunction(a, b = ++a, c = a*b) {
+     console.log(c);
+}
+myFunction(5);    // 36
+</code></pre>
+<p>注意：不像其他语言，JavaScript 是在调用时才计算默认参数的：</p>
+<pre><code class="language-js">function add(value, array = []) {
+  array.push(value);
+  return array;
+}
+add(5);    // [5]
+add(6);    // [6], not [5, 6]
+</code></pre>
+<h2 id="解构赋值">解构赋值</h2>
+<p>解构赋值是 ES6 的新特性，让我们可以从数组或者对象中提取值并赋值给变量，语法上类似于对象和数组字面量。当给函数传参时，这种语法清晰且易于理解并且很实用。</p>
+<p>在 ES5 中，经常使用配置对象来处理大量的的可选参数，尤其是属性的顺序无关紧要的时候，看下面的函数：</p>
+<pre><code class="language-js">function initiateTransfer(options) {
+    var  protocol = options.protocol,
+        port = options.port,
+        delay = options.delay,
+        retries = options.retries,
+        timeout = options.timeout,
+        log = options.log;
+    // code to initiate transfer
+}
+options = {
+  protocol: 'http',
+  port: 800,
+  delay: 150,
+  retries: 10,
+  timeout: 500,
+  log: true
+};
+initiateTransfer(options);
+</code></pre>
+<p>这种模式 JavaScript 开发者经常使用，并且很好用。但我们必须进入函数体内才知道到底需要多少参数，使用解构参数赋值，我们可以在函数声明时很清晰的指定需要的参数。</p>
+<pre><code class="language-js">function initiateTransfer({protocol, port, delay, retries, timeout, log}) {
+     // code to initiate transfer
+};
+var options = {
+  protocol: 'http',
+  port: 800,
+  delay: 150,
+  retries: 10,
+  timeout: 500,
+  log: true
+}
+initiateTransfer(options);
+</code></pre>
+<p>在这个函数中，我们使用了对象解构模式，而不是一个配置型对象，让我们的代码更加清晰易读。</p>
+<p>我们也可以混用解构参数和普通参数：</p>
+<pre><code class="language-js">function initiateTransfer(param1, {protocol, port, delay, retries, timeout, log}) {
+     // code to initiate transfer
+}
+initiateTransfer('some value', options);
+</code></pre>
+<p>需要注意，如果函数调用时解构参数缺失会抛出一个类型错误：</p>
+<pre><code class="language-js">function initiateTransfer({protocol, port, delay, retries, timeout, log}) {
+     // code to initiate transfer
+}
+initiateTransfer();  // TypeError: Cannot match against 'undefined' or 'null'
+</code></pre>
+<p>当我们的参数是必须的，这种行为我们是想要的，但是如果我们期望参数可选呢？为阻止这种错误，我们需要给解构参数赋一个默认值：</p>
+<pre><code class="language-js">function initiateTransfer({protocol, port, delay, retries, timeout, log} = {}) {
+     // code to initiate transfer
+}
+initiateTransfer();    // no error
+</code></pre>
+<p>在这个函数中，我们给解构参数赋了一个空对象作为默认值。现在如果函数调用时没有赋予参数，不会抛出错误。</p>
+<p>我们也可以给解构参数每个属性都赋默认值：</p>
+<pre><code class="language-js">function initiateTransfer({
+    protocol = 'http',
+    port = 800,
+    delay = 150,
+    retries = 10,
+    timeout = 500,
+    log = true
+}) {
+     // code to initiate transfer
+}
+</code></pre>
+<p>在这个例子中，每个属性都被赋予默认值，就无需在函数体内手动检查 undefined 的参数再赋予默认值。</p>
+<h2 id="参数传递">参数传递</h2>
+<p>函数传参有两种方式：引用传递和值传递。如果是引用传递，修改参数会引起全局的变化，如果是值传递，只会引起函数内的变化。</p>
+<p>在一些语言中，像 Visual Basic 和 PowerShell，我们可以选择声明是值传递还是引用传递，但 JavaScript 不是这样。</p>
+<h3 id="值传递">值传递</h3>
+<p>严格来说，JavaScript只能值传递。当我们通过值传递给函数传参，就在函数作用域内创建了这个值得副本。所以任何值得变化都只会反映在函数内部。看下面的例子：</p>
+<pre><code class="language-js">var a = 5;
+function increment(a) {
+    a = ++a;
+    console.log(a);
+}
+increment(a);   // 6
+console.log(a);    // 5
+</code></pre>
+<p>在这里，在函数内部修改修改参数并不会影响到原始值。所以在函数外打印这个变量，得到的结果始终是 <code>5</code>。</p>
+<h3 id="引用传递">引用传递</h3>
+<p>在 JavaScript 中，所有的都是值传递，但是当我们传递一个变量指向一个对象（包括数组），这个“值”就指向了这个对象，改变了对象的某个属相也会引起其关联对象的改变。</p>
+<p>看这个函数：</p>
+<pre><code class="language-js">function foo(param){
+    param.bar = 'new value';
+}
+obj = {
+    bar : 'value'
+}
+console.log(obj.bar);   // value
+foo(obj);
+console.log(obj.bar);   // new value
+</code></pre>
+<p>正如你看到的，对象的属性在函数体内部被修改，但是却影响到了函数外部的对象。</p>
+<p>当我们传递一个非原始的值，像数组或者对象，程序会在内存中创建一个对象，指向原始地址。如果被修改，原始值也会随之修改。</p>
+<h2 id="类型检查和缺失或多余参数">类型检查和缺失或多余参数</h2>
+<p>在强类型的语言中，我们必须在函数声明时声明参数的类型，但 JavaScript 中没有这种特性，在 JavaScript 中，并不关心传递给函数的参数的类型和个数。</p>
+<p>假设我们有一个函数，仅接受一个参数。当我们调用这个函数的使用，我们并不限制到底传递给函数多少个参数，甚至可以选择不传，都不会产生错误。</p>
+<p>参数的个数可以分为两种情况：</p>
+<ul>
+<li>
+<h4 id="参数缺失">参数缺失</h4>
+缺失的变量赋值为 undefined</li>
+<li>
+<h4 id="参数过多">参数过多</h4>
+多余的参数会被忽略，但可以从 arguments 变量中取到（下文即将讨论）。</li>
+</ul>
+<h2 id="强制参数">强制参数</h2>
+<p>函数调用中如果函数缺失，它会被设置为 undefined。我们可以利用这一点，如果参数缺失就抛出错误：</p>
+<pre><code class="language-js">function foo(mandatory, optional) {
+    if (mandatory === undefined) {
+        throw new Error('Missing parameter: mandatory');
+    }
+}
+</code></pre>
+<p>在 ES6 中，我们可以更近一步，使用默认参数来设置强制参数：</p>
+<pre><code class="language-js">function throwError() {
+    throw new Error('Missing parameter');
+}
+function foo(param1 = throwError(), param2 = throwError()) {
+    // do something
+}
+foo(10, 20);    // ok
+foo(10);   // Error: missing parameter
+</code></pre>
+<h2 id="arguments-对象">arguments 对象</h2>
+<p>在 ES4 的时候默认参数就被加入，来代替 <code>arguments</code> 对象，但 ES4 并没有实现。随着 ES6 的发布，JavaScript 现在官方支持了默认参数。但并没有取消支持 <code>arguments</code> 的计划。</p>
+<p><code>arguments</code> 对象是一个类数组的对象，可以在所有的函数中取到。<code>arguments</code> 通过数字索引来获取传入的参数，而不是通过参数的名字。这个对象允许我们给函数传入任意多的参数。看下面的代码判断：</p>
+<pre><code class="language-js">function checkParams(param1) {
+    console.log(param1);    // 2
+    console.log(arguments[0], arguments[1]);    // 2 3
+    console.log(param1 + arguments[0]);    // 4
+}
+checkParams(2, 3);
+</code></pre>
+<p>这个函数期望传入一个参数，当我们传入两个参数调用它的时候，我们通过 <code>param1</code> 或者 <code>arguments[0]</code> 来获取第一个参数，但第二个参数只能通过 <code>arguments[1]</code> 获取。也即是说，<code>arguments</code> 对象可以和有命名的参数一起使用。</p>
+<p><code>arguments</code> 对象包含了所有传入函数的参数，并且索引的起始是 <code>1</code>。当我们希望获取更多的参数的时候，我们会使用 <code>arguments[2]</code> 、<code>arguments[3]</code> 等等。</p>
+<p>我们可以跳过所有的参数命名设置，仅仅使用 <code>arguments</code> 对象：</p>
+<pre><code class="language-js">function checkParams() {
+    console.log(arguments[1], arguments[0], arguments[2]);
+}
+checkParams(2, 4, 6);  // 4 2 6
+</code></pre>
+<p>实际上，命名的参数是一种方便，但不是必需的。同样的，rest 参数也可以用来显示传入的参数：</p>
+<pre><code class="language-js">function checkParams(...params) {
+    console.log(params[1], params[0], params[2]);    // 4 2 6
+    console.log(arguments[1], arguments[0], arguments[2]);    // 4 2 6
+}
+checkParams(2, 4, 6);
+</code></pre>
+<p><code>arguments</code> 对象是一个类数组对象，但是缺少像 <code>slice</code> 和 <code>foreach</code> 等方法。为了在 <code>arguments</code> 对象上使用这些方法，需要将其转换为真实的数组：</p>
+<pre><code class="language-js">function sort() {
+    var a = Array.prototype.slice.call(arguments);
+    return a.sort();
+}
+sort(40, 20, 50, 30);    // [20, 30, 40, 50]
+</code></pre>
+<p>在这个函数中，使用 <code>Array.prototype.slice.call()</code> 快速将 <code>arguments</code> 对象转换为数组。然后使用 <code>sort</code> 方法进行排序。</p>
+<p>ES6 有一种更直接的方法，<code>Array.from()</code>，ES6 新增的方法，用来通过类数组对象创建一个新的数组。</p>
+<pre><code class="language-js">function sort() {
+    var a = Array.from(arguments);
+    return a.sort();
+}
+sort(40, 20, 50, 30);    // [20, 30, 40, 50]
+</code></pre>
+<h2 id="length-属性">length 属性</h2>
+<p>虽然 arguments 对象并不是严格意义的数组，但它有一个 <code>length</code> 属性，可以用来检查传递给函数的参数的个数。</p>
+<pre><code class="language-js">function countArguments() {
+    console.log(arguments.length);
+}
+countArguments();    // 0
+countArguments(10, null, &quot;string&quot;);    // 3
+</code></pre>
+<p>通过使用 <code>length</code> 属性，我们可以更好的控制参数的数量。比如说，如果一个函数需要两个参数，我们就可以使用 <code>length</code> 属性来检查参数数量，如果少于期望数量就抛出错误。</p>
+<pre><code class="language-js">function foo(param1, param2) {
+    if (arguments.length &lt; 2) {
+        throw new Error(&quot;This function expects at least two arguments&quot;);
+    } else if (arguments.length === 2) {
+        // do something
+    }
+}
+</code></pre>
+<p>rest 参数是数组，所以他也有 <code>length</code> 属性，我们用 ES6 来重写上面的方法：</p>
+<pre><code class="language-js">function foo(...params) {
+  if (params.length &lt; 2) {
+        throw new Error(&quot;This function expects at least two arguments&quot;);
+    } else if (params.length === 2) {
+        // do something
+    }
+}
+</code></pre>
+<h2 id="callee-和-caller-属性">Callee 和 Caller 属性</h2>
+<p><code>callee</code> 属性指向当前正在运行的函数，而 <code>caller</code> 指向调用当前正在运行函数的函数。在 ES5 严格模式下，这些属性是被废弃掉的，如果要访问它们会抛出错误。</p>
+<p><code>arguments.callee</code> 属性在递归函数（递归函数是一个普通函数，通过它的签名指向自身）下很有用，尤其是函数的签名不可用时（也就是匿名函数）。因为匿名函数没有名字，唯一指向自身的方法就是通过 <code>arguments.callee</code>。</p>
+<pre><code class="language-js">var result = (function(n) {
+  if (n &lt;= 1) {
+    return 1;
+  } else {
+    return n * arguments.callee(n - 1);
+  }
+})(4);   // 24
+</code></pre>
+<h2 id="严格模式和非严格模式下的-arguments">严格模式和非严格模式下的 arguments</h2>
+<p>在 ES5 非严格模式下， <code>arguments</code> 对象有一个不常用的特性：它保持和命名参数值同步。</p>
+<pre><code class="language-js">function foo(param) {
+   console.log(param === arguments[0]);    // true
+   arguments[0] = 500;
+   console.log(param === arguments[0]);    // true
+   return param
+}
+foo(200);    // 500
+</code></pre>
+<p>在函数内部，一个新的值赋给 <code>arguments[0]</code>。因为 <code>arguments</code> 一直和命名参数的值保持同步，<code>arguments[0]</code> 的改变也会引起 <code>param</code> 的改变。事实上，他们是同个变量的不同名称。在 ES5 严格模式下，这种令人迷惑的特性被移除了：</p>
+<pre><code class="language-js">&quot;use strict&quot;;
+function foo(param) {
+   console.log(param === arguments[0]);    // true
+   arguments[0] = 500;
+   console.log(param === arguments[0]);    // false
+   return param
+}
+foo(200);   // 200
+</code></pre>
+<p>这次，<code>arguments[0]</code> 的改变没有影响到 <code>param</code>，并且输出和期望一样。ES6下，输出结果和 ES5 的严格模式是一致的。但是请记住，在函数声明时使用了默认参数，<code>arguments</code> 不受影响。</p>
+<pre><code class="language-js">function foo(param1, param2 = 10, param3 = 20) {
+   console.log(param1 === arguments[0]);    // true
+   console.log(param2 === arguments[1]);    // true
+   console.log(param3 === arguments[2]);    // false
+   console.log(arguments[2]);    // undefined
+   console.log(param3);    // 20
+}
+foo('string1', 'string2');
+</code></pre>
+<p>在这个函数中，尽管 <code>param3</code> 有默认值，但他和 <code>arguments[2]</code> 并不相等，因为只有两个参数传入了函数。也就是说，设置默认参数并不影响 arguments 对象。</p>
+<h2 id="结论">结论</h2>
+<p>ES6 给 JavaScript 带来了许多大大小小的改进。越来越多的开发者开始使用 ES6，而且很多所有的特性都可以无障碍使用。本文我们学习了 ES6 是如何提升JavaScript 处理参数的能力的。但我们仅仅学了 ES6 的一点皮毛。更多的有趣的特性等着我们去挖掘！</p>
+<ul>
+<li><a href="https://kangax.github.io/compat-table/es6/" target="_blank" rel="noopener">ECMAScript 6 Compatibility Table</a>, Juriy Zaytsev</li>
+<li>“<a href="http://www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="noopener">ECMAScript 2015 Language Specification</a>,” ECMA International</li>
+</ul>
+<hr>
+<p>看下时间现在正好是23：23，几乎用了一个下午和晚上把这篇文章读完又翻译完，这篇文章结合 ES5 和 ES6 来讲解，收益颇多。不过翻译水平有限，求多提意见多多指教 ~</p>
+<p>原文地址： <a href="https://www.smashingmagazine.com/2016/07/how-to-use-arguments-and-parameters-in-ecmascript-6/" target="_blank" rel="noopener">How To Use Arguments And Parameters In ECMAScript 6</a></p>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2020/2/4, 4:57:33 下午 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="基于 Gulp 实现前端 Server">
+    <meta property="twitter:title" content="基于 Gulp 实现前端 Server">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/gms_h.jpg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2020/2/4, 4:57:33 下午</p>
+        <h1 class="post-title">
+            基于 Gulp 实现前端 Server
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/gulp/">gulp</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>Web开发是一个前后端合作的工作，但在开发的前期，双方约定好接口和数据后，就进入了各自的开发，这时候前端就需要有自己的开发环境，能够与最后和后端联调时后端提供的服务器能力接近，并且能够简化前端的工作流程，自动化完成相关任务。gulp就是这样一个工具，允许我们编写一系列的task，只需一个命令即可运行监听我们想执行的动作，并且gulp是基于编程的，给了我们更多自己动手的可能。</p>
+<p>那我们具体需要怎样的一套环境呢：</p>
+<ul>
+<li>根据 mock 数据和我们编写的模板输出html文件</li>
+<li>开启服务器调试，服务器具有输出接口的能力</li>
+<li>css 预处理、字体图标制作等其他任务</li>
+<li>当测试设备过多时，在文件改动时能够自动刷新以方便查看页面</li>
+</ul>
+<p>这样，我们就可以不必依赖后端的环境和数据，在约定接口后各自开发，直到联调。除非有接口变动，基本不会出错，bug率大大降低。可以腾出更多的时间和大家交(shui)流(qun)技(dou)术(meizi)。</p>
+<h2 id="后端模板支持">后端模板支持</h2>
+<p>虽然现在是 ajax 的天下了，不过有些数据还是通过页面同步输出的，这里我们使用的使用的是 FreeMarker 模板。前端是不能直接解析这些模板文件，所以调试起来就很麻烦。以前看过好多人先写  html 后缀的文件，然后造假的节点放到页面中，开始调样式，调试好后再改造成为后端模板文件。这样做效率很低，很难保证不会在复制粘贴中出错。</p>
+<p>所以需要找到编译的工具：<a href="http://fmpp.sourceforge.net/manual.html" target="_blank" rel="noopener">FMPP - FreeMarker-based file PreProcessor</a>，基于Freemarker的文件预处理器，就像我们用的CSS预处理器一样。通过他摆脱后端环境的束缚。总的来说: HTML = FTL + DATA. FMPP 就是通过数据和模板生成 html 文件, 和后端渲染输出是一个道理，可以做到和后端环境无差别。</p>
+<p><em>注：使用前先下载并加入环境变量</em></p>
+<h2 id="异步接口支持">异步接口支持</h2>
+<p>之前结合FMPP只是解决了同步接口的问题，那对于异步接口，我们如何mock数据进行调试呢。这里引入了优秀而且简单的 <a href="http://expressjs.com/4x/api.html" target="_blank" rel="noopener">express</a>, 借助 express 强大的路由来实现前端模拟异步接口的功能。</p>
+<p>同时可以引入gulp-nodemon插件，在你修改了异步接口后，不必重启gulp，服务器会自动重启。</p>
+<h2 id="其他-gulp-任务">其他 gulp 任务</h2>
+<p>gulp 提供了许多有用的插件，可以串联起来完成很复杂的操作。我这里只写了mcss 和 iconfont 两个任务。</p>
+<h2 id="如何使用">如何使用</h2>
+<h3 id="填写配置">填写配置</h3>
+<pre><code class="language-js">
+/**
+ * gulp-mock-server config
+ */
+
+module.exports = {
+    // freemarker模板设置
+    // src 模板根路径
+    // mock mock数据路径
+    // dist 模板编译后的html路径
+    freemarker: {
+        src: './template',
+        mock: './_mock',
+        dist: './_dist'
+    },
+
+    // 路由和模板的映射
+    // 路由|模板名、数据（tdd）和编译后的html一一对应
+    // /user/list &lt;-&gt; /template/user/list.ftl &lt;-&gt; /mock/sync/user/list.tdd &lt;-&gt; /dist/user/list.html
+    router: {
+        '/': '/index.ftl',
+        '/index': '/index.ftl',
+        '/user/info': '/user/info.ftl'
+    },
+
+    // express服务器设置
+    server: {
+        root: __dirname,
+        port: 8088,
+        livereload: ['./src/javascript/**/*.js', './src/css/**/*.css']
+    },
+
+    // 样式
+    style: {
+        src: './src/mcss/',
+        dist: './src/css/'
+    },
+
+    // 图标字体
+    iconfont: {
+        src: './res/svg/*.svg',
+        dist: './res/fonts/',
+        cssTpl: './res/fonts/_icontpl.mcss',
+        cssName: 'iconfont.mcss',
+        fontName: 'myfont',
+        fontClass: 'myicon'
+    },
+
+    //...
+}
+</code></pre>
+<p>在这里重点关注 <code>router</code> 配置，为了和后端环境保证一致，需要配置和后端约定好的路由和路由对应的模板地址。当启动 express 服务器时，直接访问路由，就会去找对应的模板渲染的 html。</p>
+<p>如果有自己的扩展任务也建议将配置项配置在这里，然后在 <code>_gms/parseConfig.js</code> 中解析，完成其他任务。</p>
+<p>在填写完配置后，首先运行 <code>gulp init</code>，会根据 <code>freemarker</code> 项生成项目初始目录。</p>
+<h3 id="运行-gulp-命令">运行 gulp 命令</h3>
+<pre><code class="language-bash">gulp 
+</code></pre>
+<p>运行效果大致如图：</p>
+<p><img src="/posts/assets/img/gms.jpg" alt="gms"></p>
+<h2 id="总结">总结</h2>
+<p>这里只是实现了最简单的前端 Server 的功能，其实还有事情可做，比如接口管理、接口测试、文档管理、数据 Mock等等。现在有很多高大上的 Mock Server 了，比如网易的 <a href="https://nei.netease.com/" target="_blank" rel="noopener">NEI</a>。</p>
+<p>不过基于 Gulp 实现，可以很好的结合前端的一些自动化任务在里面，关注接口的同时也能同时处理其他事情，而且也很容易扩展，可以使用其他的后端模板，也可以使用其他插件来扩展前端任务。</p>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2020/2/4, 4:57:33 下午 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

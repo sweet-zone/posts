@@ -1,0 +1,310 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="详解 Webpack（下）">
+    <meta property="twitter:title" content="详解 Webpack（下）">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/webpack.jpg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2020/2/4, 4:57:33 下午</p>
+        <h1 class="post-title">
+            详解 Webpack（下）
+            
+            <p class="t">译</p>
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/webpack/">webpack</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>JavaScript 模块打包工具已经出现有一段时间了。RequireJS 在2009年完成了第一次提交，然后 Browserify 随之出现，从那时候起相继出现了各种模块打包工具。在这些里面，webpack脱颖而出。如果你还不熟悉它，我希望这篇文章可以帮你开始使用这个强大的工具。</p>
+<p>本文承接<a href="/2017/03/13/a-detailed-introduction-to-webpack-1.html">详解 Webpack（上）</a></p>
+<h2 id="使用插件">使用插件</h2>
+<p>插件为 webpack 提供了一些实用性的功能。你有充分的自由将它们加入到 webpack 的工作流中，不像 loaders，插件并不限制用于某些文件。它们可以注入到任何地方，所以能做的就更多。很难去解释清插件到底能做什么，所以我只是告诉一个<a href="https://www.npmjs.com/search?q=webpack-plugin" target="_blank" rel="noopener">名为 webpack-plugin npm 包的列表</a>，应该能够很好的说明这一点。</p>
+<p>在本教程中，我们仅接触两个插件（另一个稍后使用）。这篇文章到这里已经很长了，那我们就继续来一个插件的 demo。第一个我们要使用的插件是 <a href="https://github.com/ampedandwired/html-webpack-plugin" target="_blank" rel="noopener">HTML Webpack Plugin</a>，这个插件可以创建一个 HTML - 我们终于可以使用这个 web 应用了！</p>
+<p>在使用这个插件之前，先更新一下 <code>scripts</code>，安装一个简单的 web 服务器来测试我们的页面。首先安装：<code>npm i -D http-server</code>，然后，然后我们修改 <code>execute</code> 为 <code>server</code>，并相应的更新 <code>start</code> 脚本：</p>
+<pre><code class="language-json">&quot;scripts&quot;: {
+  &quot;prebuild&quot;: &quot;del-cli dist -f&quot;,
+  &quot;build&quot;: &quot;webpack&quot;,
+  &quot;server&quot;: &quot;http-server ./dist&quot;,
+  &quot;start&quot;: &quot;npm run build -s &amp;&amp; npm run server -s&quot;
+},
+</code></pre>
+<p>webpack 构建完毕后，<code>npm start</code> 也会创建一个 web 服务器，你可以 访问<code>localhost:8080</code> 查看页面。当然，首先我们要先使用这个插件创建一个页面，安装插件：<code>npm i -D html-webpack-plugin</code>。</p>
+<p>安装完成后，我们需要修改 <code>webpack.config.js</code>：</p>
+<pre><code class="language-js">var HtmlwebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    entry: [
+        'babel-polyfill',
+        './src/main.js'
+    ],
+    output: {
+        path: './dist',
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/,
+                options: { plugins: ['transform-runtime'], presets: ['es2015'] }
+            },
+            { test: /\.hbs$/, loader: 'handlebars-loader' }
+        ]
+    },
+    plugins: [
+        new HtmlwebpackPlugin()
+    ]
+};
+</code></pre>
+<p>我们主要做了两处修改：在文件顶部引入了插件，并在配置对象中添加 <code>plugins</code> 属性，传入了插件的实例。</p>
+<p>现在，我们没有给插件传入任何选项，所以它会生成标准的模板，虽然没有包含什么，但已经包含了我们打包的脚本。如果你运行 <code>npm start</code>，你在浏览器中会看见一个空白页，不过如果你打开控制台，就会看到有 HTML 输出。</p>
+<p>我们要将模板和 HTML 文件输出到页面而不仅仅是控制台中，普通人会从页面中看到一些东西（而不是空白页），首先在 <code>src</code> 目录下新建 <code>index.html</code> 文件，默认他会使用 EJS 作为模板引擎，不过你也可以插件使用<a href="https://github.com/ampedandwired/html-webpack-plugin/blob/master/docs/template-option.md" target="_blank" rel="noopener">其他的模板引擎</a>。我们将使用默认的 EJS 模板，下面是文件的内容：</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;&lt;%= htmlWebpackPlugin.options.title %&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h2&gt;This is my Index.html Template&lt;/h2&gt;
+    &lt;div id=&quot;app-container&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>你会注意到一些点：</p>
+<ul>
+<li>我们可以使用插件的一个选项设置 HTML 标题。</li>
+<li>不必手动设置该添加的脚本。因为它会默认在 <code>body</code> 底部添加脚本。</li>
+<li>这里有一个 <code>div</code> 和 <code>id</code>，现在我们就要使用它们。</li>
+</ul>
+<p>有了模板后，至少现在不再是一个空白页面。更新 <code>main.js</code>，将 HTML 添加到 <code>div</code>，而不是打印到控制台中。在 <code>main.js</code> 最后添加一行：</p>
+<pre><code class="language-js">document.getElementById(&quot;app-container&quot;).innerHTML = template({numbers});
+</code></pre>
+<p>同时也要更新 webpack 的配置，给插件传递几个选项，现在你的配置文件变成这样：</p>
+<pre><code class="language-js">var HtmlwebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+    entry: [
+        'babel-polyfill',
+        './src/main.js'
+    ],
+    output: {
+        path: './dist',
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/,
+                options: { plugins: ['transform-runtime'], presets: ['es2015'] }
+            },
+            { test: /\.hbs$/, loader: 'handlebars-loader' }
+        ]
+    },
+    plugins: [
+        new HtmlwebpackPlugin({
+            title: 'Intro to webpack',
+            template: 'src/index.html'
+        })
+    ]
+};
+</code></pre>
+<p><code>template</code> 选项声明了在模板的所在位置，<code>title</code>选项是传递给模板的标题，现在运行 <code>npm start</code>，你会在浏览器看到以下内容：</p>
+<p><img src="https://www.smashingmagazine.com/wp-content/uploads/2017/02/index-html-template-opt.png" alt="index-html-template-opt.png"></p>
+<p>到这里我们完成了 <code>example5</code> 分支的所有工作。每个插件都有不同的选项和配置，有太多的插件，它们能做各种各样的事情。最后它们都会添加到 webpack 配置项 <code>plugins</code> 数组里。这里有很多方法去处理如何生成 HTML 页面，去填充页面内容，以及给页面添加带 hash 值得文件名（<em>译者注：应该是带 hash值的脚本文件或者 css 文件</em>）</p>
+<p>在 <code>example6</code> 分支里，我通过一个插件增加了压缩 JavaScript 文件的功能，除非你想用 UglifyJS 做一些改变，要不你无需做其他事情。如果不喜欢 UglifyJS 的默认配置，修改 webpack.config.js 中插件的配置，如果默认配置符合你的心意，那么你就运行 <code>webpack -p</code>命令，<code>-p</code> 是 <code>production</code>  的缩写，也就相当于使用 <code>--optimize-minimize</code> 和 <code>--optimize-occurence-order</code> 参数。第一个参数代表压缩 JavaScript，第二个参数优化打包文件中各个模块的加载顺序，使得文件更小运行速度更快。这个仓库已经挺久了，那会我还不知道 <code>-p</code> 这个参数，所以我决定示例保持原样，能给你一点启发。另外一个你能用到的参数是 <code>-d</code>，这样 webpack 在执行时会展示更多的调试信息，并会生成不带额外信息的 sourcemaps。如果这些对你都很简单，你可以在了解更多 <a href="http://webpack.github.io/docs/cli.html" target="_blank" rel="noopener">命令行简写</a> 的知识。</p>
+<h2 id="懒加载">懒加载</h2>
+<p>我最喜欢的 RequireJS 的一点是可以懒加载模块。一个超大的 JavaScript 文件可以减少请求数，但是也导致用户没有使用到的代码也被下载了下来。</p>
+<p>Webpack 有一种方法可以将文件分割成多个懒加载的块，甚至你都不需要在配置文件中做什么配置。你只需要写点代码，Webpack 会处理剩下的事情。Webpack 提供了两种方法，一种基于 CommonJS，一种基于 AMD。使用 CommonJS 的话，看起来是这样：</p>
+<pre><code class="language-js">require.ensure([&quot;module-a&quot;, &quot;module-b&quot;], function(require) {
+    var a = require(&quot;module-a&quot;);
+    var b = require(&quot;module-b&quot;);
+    // …
+});
+</code></pre>
+<p>使用 <code>require.ensure</code>，保证模块是可用的（但不执行它），传入模块的数组和一个回调。为了在回调中真正的使用这个回调，你需要使用回调的参数 <code>require</code> 显式的引入这些模块。</p>
+<p>个人感觉，这种使用方法不太好，让我们看一下 AMD 的版本：</p>
+<pre><code class="language-js">require([&quot;module-a&quot;, &quot;module-b&quot;], function(a, b) {
+    // …
+});
+</code></pre>
+<p>AMD 版本中，使用 <code>require</code> 方法传入模块的数组和一个回调。回调的参数指向这些模块，而且和数组的顺序一致。</p>
+<p>Webpack2 也支持 <code>System.import</code>，使用 promises 而不是回调。这是一个很有用的改进，虽然你如果你真的想用 promise，这也不是难事。不过注意，<code>System.import</code> 已经废弃，因为已经有了新的 <code>import()</code> 规范。在 Babel（或者TypeScript）使用会抛出语法错误。你可以使用 <a href="https://www.npmjs.com/package/babel-plugin-dynamic-import-webpack" target="_blank" rel="noopener"> babel-plugin-dynamic-import-webpack</a>，但它会将 <code>System.import</code> 转换为 <code>require.ensure</code>，而不仅仅帮助 Babel 查看合法的 <code>import</code> 参数，这样 Webpack 就可以处理了。AMD 和 <code>require.ensure</code> 短时间不会消失，<code>System.import</code> 至少要到 Webpack3 才会支持，所以尽情的事情你喜欢的方式。（<em>译者注：这段有点懵逼</em>）</p>
+<p>让我们增加一点代码，等待几秒钟，懒加载 handlebar 模板并将结果输出到页面上。我们移除掉文件顶部的 <code>import</code>，然后用 <code>setTimeout</code> 包起来，使用 AMD 方式 <code>require</code> 这段模板：</p>
+<pre><code class="language-js">import { map } from 'lodash';
+
+let numbers = map([1,2,3,4,5,6], n =&gt; n*n);
+
+setTimeout( () =&gt; {
+    require(['./numberlist.hbs'], template =&gt; {
+        document.getElementById(&quot;app-container&quot;).innerHTML = template({numbers});
+    })
+}, 2000);
+</code></pre>
+<p>现在运行 <code>npm start</code>，你会看到生成了另外一个资源，应该是 <code>1.bundle.js</code>。打开浏览器的开发者工具，切到 Network 面板，你会看到两秒后，一个新的文件加载进来，并执行。这并不难实现，但是却减少了文件的体积，增强了用户体验。</p>
+<p>注意：这些子模块包括他们的所有依赖，都被包含在他们的父模块中。（你可以有多个入口，懒加载不同的模块，这样不同的模块就被加载进了各个父模块中）。（<em>译者注： 翻译待加强</em>）</p>
+<h2 id="创建-vendor-chunk">创建 Vendor Chunk</h2>
+<p>让我们继续讨论一些优化点：vendor chunks。你可以定义一些单独的文件，用来保存一些通用的或者第三方的代码，这些代码通常不怎么变化。这样用户就可以先缓存这些文件。当你更新应用的时候，就不必再重新下载这些代码了。</p>
+<p>为了做到这一点，我们需要使用 webpack 自带的一个插件：<code>CommonsChunkPlugin</code>。这是 webpack 自带的插件，所有我们不用额外安装什么。只要编辑配置文件即可：</p>
+<pre><code class="language-js">var HtmlwebpackPlugin = require('html-webpack-plugin');
+var UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+var CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
+
+module.exports = {
+    entry: {
+        vendor: ['babel-polyfill', 'lodash'],
+        main: './src/main.js'
+    },
+    output: {
+        path: './dist',
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/,
+                options: { plugins: ['transform-runtime'], presets: ['es2015'] }
+            },
+            { test: /\.hbs$/, loader: 'handlebars-loader' }
+        ]
+    },
+    plugins: [
+        new HtmlwebpackPlugin({
+            title: 'Intro to webpack',
+            template: 'src/index.html'
+        }),
+        new UglifyJsPlugin({
+            beautify: false,
+            mangle: { screw_ie8 : true },
+            compress: { screw_ie8: true, warnings: false },
+            comments: false
+        }),
+        new CommonsChunkPlugin({
+            name: &quot;vendor&quot;,
+            filename: &quot;vendor.bundle.js&quot;
+        })
+    ]
+};
+</code></pre>
+<p>在第三行，我们引入了这个插件，<code>entry</code> 入口，我们使用对象字面量来声明多入口文件，<code>vendor</code> 入口标识那些被包含进 vendor chunks 的文件 - 这里我们包含了 polyfill 和 lodash，我们把应用的代码放进 <code>main.js</code> 内。然后只要在 plugins 入口增加 <code>CommonsChunkPlugin</code> 插件，在插件中声明 <code>vendor</code> 出口并且 vendor chunks 的代码命名为 <code>vendor.bundle.js</code>。</p>
+<p>通过声明 vendor chunks，这个插件会把这个 chunks 的所有依赖从入口文件抽离出来放到 vendor chunks 中。如果你声明 vendor 的名字，它会根据入口的依赖文件生成一个单独的文件。</p>
+<p>当你运行 webpack 后，你会看到生成了三个 JavaScript 文件：<code>bundle.js</code>、<code>1.bundle.js</code>、<code>vendor.bundle.js</code>。如果你喜欢的话，可以再次运行 <code>npm start</code> 在浏览器中查看结果。看起来 webpack 是在应用的主代码中处理 vendor chunks 的加载，真的很有用！</p>
+<p>这就是 <code>example8</code> 的所有内容，也是本教程的所有内容。我讲到了很多，但也只是 webpack 的一小部分而已。webpack 包括了更加简单的 CSS 模块、缓存（cache-busting）hash、图片优化等等很多很多，每一点都可以长篇大论。我不能给你展示所有的知识点，而且等我写完了，好多都已经过时了！所以尝试一下 webpack，让我知道提高了你的工作效率！</p>
+<p>上帝保佑，happy coding！</p>
+<hr>
+<p>文章是在太长，分成上下两部分。<br>
+原文地址：<a href="https://www.smashingmagazine.com/2017/02/a-detailed-introduction-to-webpack/" target="_blank" rel="noopener">A Detailed Introduction To Webpack</a></p>
+<hr>
+<p>翻译水平实在有限 ~ 如果有疑惑可以直接运行仓库例子 ~</p>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2020/2/4, 4:57:33 下午 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

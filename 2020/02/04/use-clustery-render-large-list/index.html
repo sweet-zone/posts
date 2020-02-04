@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="前端长列表渲染优化">
+    <meta property="twitter:title" content="前端长列表渲染优化">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/performance.jpg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2020/2/4, 4:57:33 下午</p>
+        <h1 class="post-title">
+            前端长列表渲染优化
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/posts/tags/performance/">performance</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>对于长列表，一般的应用可以通过分页解决。然而现在很多的应用列表部分可能是滚动加载的，随着滚动，列表项越来越多，影响性能和体验，尤其是移动设备上；另一种是IM应用，像会话列表、好友列表、群成员列表通常会一次性加载。在这些情况下，对于长列表的优化就显得很有必要。</p>
+<p><a href="http://clusterize.js.org/" target="_blank" rel="noopener">Clusterize.js</a>就是这样一个库，短小精悍。它会将列表划分成一个个的cluster，随着滚动只显示当前可见的cluster，并在列表的顶部和底部填充额外的高度，展示列表的真实高度。</p>
+<blockquote>
+<p>The main idea is not to pollute DOM with all used tags. Instead of that - it splits the list to clusters, then shows elements for current scroll position and adds extra rows to top and bottom of the list to emulate full height of table so that browser shows scrollbar as for full list.</p>
+</blockquote>
+<p>不过Clusterize.js是基于DOM的，随着MVVM框架的流行，大家更多的是在操作数据，所以我基于Clusterize.js做了Clustery.js。</p>
+<h2 id="如何使用-clustery-js">如何使用 Clustery.js</h2>
+<p>首先了解一下<a href="http://clusterize.js.org/" target="_blank" rel="noopener">Clusterize.js</a>。</p>
+<p>Clusterize.js有超多的配置项、公共方法和回调函数，在操作 DOM 的时候比较有用。Clustery.js 做了大量的简化，不必再引入 Clusterize.js 自带的 css，增加了 <code>item_height</code> 的配置，显式的声明每一项的高度；<code>rows</code> 不再是 DOM 元素的数组，而是用于渲染的数据。下面是所有的配置项、回调和公共方法：</p>
+<pre><code class="language-js">this.clustery = new Clustery({
+    scrollElem: scrollElem,
+    contentElem: contentElem,
+    rows: rows,
+    item_height: itemHeight,
+    rows_in_block: 20,
+    blocks_in_cluster: 4,
+    callbacks: {
+        shouldUpdate: function(data) {
+            _this.setRenderData(data)
+        }
+    }
+});
+
+// if you want to destroy
+this.clustery.destroy();
+
+// if you modify itemHeight manually
+this.clustery.refresh(item_height);
+
+// if you update data
+this.clustery.update(newRows);
+</code></pre>
+<p><code>callbacks</code>暂时只有一个回调，当需要渲染的数据改变时触发 <code>shouldUpdate</code> 方法，参数 <code>_data</code> 可能是一个对象也可能是一个数字(仅仅是 <code>bottom_offset</code> 改变)：</p>
+<pre><code class="language-js">{
+    start: 0,   // 渲染列表从start到end, 此时需要渲染arr.slice(start, end)   
+    end: 80,
+    top_offset: 1245,   // 列表顶部填充高度
+    bottom_offset: 3349 // 列表底部填充高度
+}
+</code></pre>
+<p>可以去 Github 中查看 <a href="https://github.com/zjzhome/Clustery.js" target="_blank" rel="noopener">DEMO</a></p>
+<p>如果你对实现原理感兴趣，请继续往下看 😉</p>
+<h2 id="实现原理">实现原理</h2>
+<p>为了实现随滚动只加载可见区域，Clusterize.js 引入了几个概念：</p>
+<pre><code class="language-js">{
+    rows_in_block: 0,     // 每一个block包含的rows
+    block_height: 0,      // 每一个block的高度 item_height * rows_in_block
+    blocks_in_cluster: 4, // 每个cluster包含的blocks的个数
+    rows_in_cluster: 0,   // 每一个cluster包含的rows blocks_in_cluster * rows_in_block
+    cluster_height: 0,    // 每一个cluster的高度 block_height * blocks_in_cluster
+}
+</code></pre>
+<p>整个列表被划分为一个个的 <code>cluster</code>，每个 <code>cluster</code> 包含多个 <code>block</code>，每个 <code>block</code>包含多个 <code>rows</code>，也就是渲染的最小单位 - 每行数据。</p>
+<p>首先要确定上述几个配置项的值。每一项的高度 <code>item_height</code> 是由用户传入的，然后需要确定的是 <code>row_in_block</code>，因为其他几个值得计算都是依赖于它的：</p>
+<pre><code class="language-js">// 我们将整个可见的区域作为一个 block
+// 除以 item_height 就得到每个 block 内包含的 rows
+
+if(!opts.rows_in_block) {
+  opts.rows_in_block = Math.ceil(this.scroll_elem.offsetHeight / opts.item_height);
+}
+</code></pre>
+<p>其他配置项也能轻松得到了：</p>
+<pre><code class="language-js">opts.block_height = opts.item_height * opts.rows_in_block;
+opts.rows_in_cluster = opts.blocks_in_cluster * opts.rows_in_block;
+opts.cluster_height = opts.blocks_in_cluster * opts.block_height;
+</code></pre>
+<p>然后就开始处理用户滚动的事件了，随着用户滚动，我们需要确定需要渲染哪个 <code>cluster</code>:</p>
+<pre><code class="language-js">// get current cluster number
+// 一个 cluster 包含多个 block, 整理减掉一个 block 的高度可以看作是缓冲
+// 在用户没有滚动到这个 cluster 的底部的时候就已经加载下个 cluster, 防止出现短暂的空白.
+getClusterNum: function () {
+  this.options.scroll_top = this.scroll_elem.scrollTop;
+  return Math.floor(this.options.scroll_top / (this.options.cluster_height - this.options.block_height)) || 0;
+}
+</code></pre>
+<p>然后我们需要生成新的 cluster 进行渲染：</p>
+<pre><code class="language-js">// 其实是 getClusterNum 的一次反向运算，计算出数据从第几项开始渲染
+var items_start = Math.max((opts.rows_in_cluster - opts.rows_in_block) * cluster_num, 0),
+  items_end = items_start + opts.rows_in_cluster,
+  top_offset = Math.max(items_start * opts.item_height, 0),
+  bottom_offset = Math.max((rows_len - items_end) * opts.item_height, 0);
+</code></pre>
+<p>其实我们可以看出来，每个 cluster 并不是独立的，而是重叠的，所以在快速滚动的时候，不会有空白的情况出现。</p>
+<p>最后库额外做了其他事情，把之前的数据缓存起来，滚动的后的计算结果和缓存内的比较，如果有变化，就调用用户传入的回调函数通知用户渲染数据。</p>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2020/2/4, 4:57:33 下午 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>

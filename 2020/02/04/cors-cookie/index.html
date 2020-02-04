@@ -1,0 +1,174 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <title>DarkZone&#39;Home</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    
+    <meta name="description" content="小前端, 博客, JS, CSS, WEB">
+    <meta property="og:description" content="小前端, 博客, JS, CSS, WEB">
+    
+    <meta name="author" content="darkzone">
+
+    
+    <meta property="og:title" content="跨域读写 Cookie">
+    <meta property="twitter:title" content="跨域读写 Cookie">
+    
+
+    <link rel="stylesheet" href="/posts/css/style.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/tomorrow.min.css">
+</head>
+</html>
+<body>
+    <div id="container"  class="full"  >
+        
+<div class="cover  full " style="background-image:url(/posts/css/img/thumb.jpeg);">
+    <div class="cover-inner">
+        <a class="you" href="/">
+            <img class="radius" src="/posts/css/img/avatar.jpeg" alt="avatar">
+            <h1>DarkZone</h1>
+            <h3 style="display: none;">Web Developer</h3>
+        </a>
+        <hr class="divider long">
+        <div class="desc">
+            <p>小前端 / 死宅男</p>
+            <p>偶尔抽风 / 时常不正经</p>
+        </div>
+        <hr class="divider short">
+        <div class="links">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/posts">Posts</a></li>
+                <li><a href="/posts/about">About</a></li>
+            </ul>
+        </div>
+        <div class="links socials">
+            <ul>
+                <li>
+                    <a href="https://github.com/zjzhome" target="_blank">
+                        <i class="icon ion-social-github"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:zjzhome@126.com?subject=Hello,%20I%20saw%20your%20web!">
+                        <i class="icon ion-email"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="atom.xml" target="_blank">
+                        <i class="icon ion-social-rss"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        
+<div class="wrapper post-page">
+    <div class="post-header" style="background-image:url(/posts/assets/img/cookie.jpeg)">
+        <a class="anchor full" href="javascript:void(0);" id="anchor">
+            <img class="radius" src="/posts/css/img/avatar_1.jpeg" alt="avatar">
+        </a>
+        <p class="post-time">posted @ 2020/2/4, 4:57:33 下午</p>
+        <h1 class="post-title">
+            跨域读写 Cookie
+            
+        </h1>
+        
+        <div class="post-tag">
+            <a class="tag-link" href="/posts/tags/JavaScript/">JavaScript</a>, <a class="tag-link" href="/posts/tags/XHR/">XHR</a>
+        </div>
+        
+    </div>
+    <div class="post-content">
+        <p>因为 CORS（HTTP访问控制）的出现，跨域请求变的简单了很多，只需要服务器设置几个 response header 就可以轻松实现跨域访问。</p>
+<pre><code class="language-js">// nodejs express 简单实现
+app.get('/cors_url', function(req, res) {
+    res.set({
+        'Access-Control-Allow-Origin': 'http://admin.ts.163.com:8184',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*'
+    })
+
+    res.json({
+        code: 200,
+        msg: 'hello'
+    })
+})
+</code></pre>
+<p>在这样设置之后，请求可以正常发出和响应，但你会发现，此时并没有带上服务器域名下的 cookie。比如，在你使用网易邮箱登录了之后，你的浏览器中就会出现 domain 为 <code>.163.com</code> 的 cookie。如果我们在另一个域名（比如 <a href="http://my.com" target="_blank" rel="noopener">my.com</a>）调用了 <a href="http://x1.163.com" target="_blank" rel="noopener">x1.163.com</a> 域名下的接口，此时 request header 并不会带上 <code>.163.com</code> cookie。</p>
+<p>CORS 是可以做到这一点的，前后端进行相应的设置后，就可以发送 cookie。</p>
+<p>首先 ajax 中，在 send 方法前，设置 <code>xhr.withCredentials = true</code>，就可以向服务器发送 cookie。这时候如果发起请求，会得到一个错误：</p>
+<blockquote>
+<p>XMLHttpRequest cannot load <a href="http://x1.163.com:9003/cors_url?id=123456" target="_blank" rel="noopener">http://x1.163.com:9003/cors_url?id=123456</a>. The value of the ‘Access-Control-Allow-Credentials’ header in the response is ‘’ which must be ‘true’ when the request’s credentials mode is ‘include’. Origin ‘<a href="http://you.com:9005" target="_blank" rel="noopener">http://you.com:9005</a>’ is therefore not allowed access. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.</p>
+</blockquote>
+<p>服务器也要进行相应的设置：</p>
+<pre><code class="language-js">// nodejs express 简单实现
+app.get('/cors_url', function(req, res) {
+    res.set({
+        'Access-Control-Allow-Origin': 'http://admin.ts.163.com:8184',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Credentials': true // 增加 Access-Control-Allow-Credentials 
+    })
+
+    res.json({
+        code: 200,
+        msg: 'hello'
+    })
+})
+</code></pre>
+<p>此时发送请求， request header 多了 cookie 这个字段，同时服务器响应头中也可以通过 Set-Cookie 设置服务器域名下的 cookie。</p>
+<p><img src="/posts/assets/img/cors/header.jpg" alt="cors-header"></p>
+<p>对于 IE8 和 IE9，浏览器提供了 <code>window.XDomainRequest</code> 对象，方法和 XMLHttpRequest 类似。</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS#%E9%99%84%E5%B8%A6%E8%BA%AB%E4%BB%BD%E5%87%AD%E8%AF%81%E7%9A%84%E8%AF%B7%E6%B1%82" target="_blank" rel="noopener">HTTP访问控制（CORS）</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
+<li><a href="https://msdn.microsoft.com/en-us/library/cc288060%28VS.85%29.aspx" target="_blank" rel="noopener">XDomainRequest object</a></li>
+</ul>
+
+    </div>
+
+    
+    <div class="update-tip">**本文于 2020/2/4, 4:57:33 下午 重新编辑**</div>
+    
+
+    <div class="comment">
+        <!-- 来必力City版安装代码 -->
+        <div id="lv-container" data-id="city" data-uid="MTAyMC8zMDYwNS83MTYw">
+            <script type="text/javascript">
+           (function(d, s) {
+               var j, e = d.getElementsByTagName(s)[0];
+
+               if (typeof LivereTower === 'function') { return; }
+
+               j = d.createElement(s);
+               j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+               j.async = true;
+
+               e.parentNode.insertBefore(j, e);
+           })(document, 'script');
+            </script>
+        <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+        </div>
+        <!-- City版安装代码已完成 -->        
+    </div>
+
+</div>
+<script src="/posts/js/post.js"></script>
+    </div>
+
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+</html>
